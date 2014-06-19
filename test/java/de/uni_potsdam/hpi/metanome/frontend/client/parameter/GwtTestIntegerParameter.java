@@ -18,21 +18,22 @@ package de.uni_potsdam.hpi.metanome.frontend.client.parameter;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import de.uni_potsdam.hpi.metanome.algorithm_integration.AlgorithmConfigurationException;
-import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSettingString;
+import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSettingInteger;
 import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecification;
-import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecificationString;
+import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecificationInteger;
+import de.uni_potsdam.hpi.metanome.frontend.client.helpers.InputValidationException;
 import org.junit.Test;
 
-public class GwtTestStringParameter extends GWTTestCase {
+public class GwtTestIntegerParameter extends GWTTestCase {
 
 	@Test
 	public void testCreateWithFixedNumber() throws AlgorithmConfigurationException {
 		//Setup
 		int noOfValues = 3;
-		ConfigurationSpecificationString specification = new ConfigurationSpecificationString("string", noOfValues);
+		ConfigurationSpecificationInteger specification = new ConfigurationSpecificationInteger("integer", noOfValues);
 
 		//Execute
-		InputParameterStringWidget widget = new InputParameterStringWidget(specification);
+		InputParameterIntegerWidget widget = new InputParameterIntegerWidget(specification);
 
 		//Check
 		assertEquals(noOfValues, widget.inputWidgets.size());
@@ -44,10 +45,10 @@ public class GwtTestStringParameter extends GWTTestCase {
 	public void testCreateWithArbitraryNumber() throws AlgorithmConfigurationException {
 		//Setup
 		int noOfValues = ConfigurationSpecification.ARBITRARY_NUMBER_OF_VALUES;
-		ConfigurationSpecificationString specification = new ConfigurationSpecificationString("string", noOfValues);
+		ConfigurationSpecificationInteger specification = new ConfigurationSpecificationInteger("integer", noOfValues);
 
 		//Execute
-		InputParameterStringWidget widget = new InputParameterStringWidget(specification);
+		InputParameterIntegerWidget widget = new InputParameterIntegerWidget(specification);
 
 		//Check
 		assertEquals(1, widget.inputWidgets.size());        //expecting one default input field
@@ -58,9 +59,9 @@ public class GwtTestStringParameter extends GWTTestCase {
 	@Test
 	public void testAddInput() throws AlgorithmConfigurationException {
 		//Setup
-		ConfigurationSpecificationString specification = new ConfigurationSpecificationString("bool",
+		ConfigurationSpecificationInteger specification = new ConfigurationSpecificationInteger("bool",
 				ConfigurationSpecification.ARBITRARY_NUMBER_OF_VALUES);
-		InputParameterStringWidget widget = new InputParameterStringWidget(specification);
+		InputParameterIntegerWidget widget = new InputParameterIntegerWidget(specification);
 		int previousCount = widget.getWidgetCount();
 		int listCount = widget.inputWidgets.size();
 
@@ -75,9 +76,9 @@ public class GwtTestStringParameter extends GWTTestCase {
 	@Test
 	public void testRemoveInput() throws AlgorithmConfigurationException {
 		//Setup
-		ConfigurationSpecificationString specification = new ConfigurationSpecificationString("bool",
+		ConfigurationSpecificationInteger specification = new ConfigurationSpecificationInteger("bool",
 				ConfigurationSpecification.ARBITRARY_NUMBER_OF_VALUES);
-		InputParameterStringWidget widget = new InputParameterStringWidget(specification);
+		InputParameterIntegerWidget widget = new InputParameterIntegerWidget(specification);
 		int previousCount = widget.getWidgetCount();
 		int listCount = widget.inputWidgets.size();
 
@@ -92,18 +93,47 @@ public class GwtTestStringParameter extends GWTTestCase {
 	@Test
 	public void testRetrieveValues() throws AlgorithmConfigurationException {
 		//Setup
-		String value = "something";
-		ConfigurationSpecificationString specification = new ConfigurationSpecificationString("bool",
+		int value1 = 7;
+		ConfigurationSpecificationInteger specification1 = new ConfigurationSpecificationInteger("integer",
 				ConfigurationSpecification.ARBITRARY_NUMBER_OF_VALUES);
-		InputParameterStringWidget widget = new InputParameterStringWidget(specification);
+		InputParameterIntegerWidget widget1 = new InputParameterIntegerWidget(specification1);
+
+		ConfigurationSpecificationInteger specification2 = new ConfigurationSpecificationInteger("integer",
+				ConfigurationSpecification.ARBITRARY_NUMBER_OF_VALUES);
+		InputParameterIntegerWidget widget2 = new InputParameterIntegerWidget(specification2);
+
+		InputParameterIntegerWidget widget3 = new InputParameterIntegerWidget(specification2);
 
 		//Execute
-		((StringInput) widget.getWidget(0)).textbox.setValue(value, true);
-		ConfigurationSettingString[] settings = widget.getUpdatedSpecification().getSettings();
+		((IntegerInput) widget1.getWidget(0)).textbox.setValue(value1, true);
+		ConfigurationSettingInteger[] settings1 = new ConfigurationSettingInteger[0];
+		try {
+			settings1 = widget1.getUpdatedSpecification().getSettings();
+		} catch (InputValidationException e) {
+			fail();
+		}
+
+		ConfigurationSettingInteger[] settings2 = new ConfigurationSettingInteger[0];
+		try {
+			settings2 = widget2.getUpdatedSpecification().getSettings();
+		} catch (InputValidationException e) {
+			fail();
+		}
+
+		((IntegerInput) widget3.getWidget(0)).textbox.setText("not a number");
 
 		//Check
-		assertEquals(1, settings.length);
-		assertEquals(value, settings[0].value);
+		assertEquals(1, settings1.length);
+		assertEquals(value1, settings1[0].value);
+
+		assertEquals(1, settings2.length);
+		assertEquals(-1, settings2[0].value);
+
+		try {
+			widget3.getUpdatedSpecification().getSettings();
+		} catch (InputValidationException e) {
+			assertTrue(true);
+		}
 	}
 
 	@Override

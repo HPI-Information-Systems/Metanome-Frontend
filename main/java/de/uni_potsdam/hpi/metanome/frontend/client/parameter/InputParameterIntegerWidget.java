@@ -17,45 +17,46 @@
 package de.uni_potsdam.hpi.metanome.frontend.client.parameter;
 
 import de.uni_potsdam.hpi.metanome.algorithm_integration.AlgorithmConfigurationException;
-import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSettingString;
+import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSettingInteger;
 import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecification;
-import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecificationString;
+import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecificationInteger;
+import de.uni_potsdam.hpi.metanome.frontend.client.helpers.InputValidationException;
 
 import java.util.List;
 
-public class InputParameterStringWidget extends InputParameterWidget {
+public class InputParameterIntegerWidget extends InputParameterWidget {
 
-	protected ConfigurationSpecificationString specification;
-	protected List<StringInput> inputWidgets;
+	protected ConfigurationSpecificationInteger specification;
+	protected List<IntegerInput> inputWidgets;
 
-	public InputParameterStringWidget(ConfigurationSpecificationString config) throws AlgorithmConfigurationException {
+	public InputParameterIntegerWidget(ConfigurationSpecificationInteger config) throws AlgorithmConfigurationException {
 		super(config);
 	}
 
 	@Override
 	protected void addInputField(boolean optional) {
-		this.addInputField(optional, 0);
+		addInputField(optional, 0);
 	}
 
 	@Override
 	protected void addInputField(boolean optional, int specificationIndex) {
-		StringInput field = new StringInput(optional);
+		IntegerInput field = new IntegerInput(optional);
 		this.inputWidgets.add(field);
 		int index = (this.getWidgetCount() < 1 ? 0 : this.getWidgetCount() - 1);
 		this.insert(field, index);
 	}
 
 	@Override
-	public ConfigurationSpecificationString getUpdatedSpecification() {
-		this.specification.setValues(this.getConfigurationSettings());
+	public ConfigurationSpecificationInteger getUpdatedSpecification() throws InputValidationException {
+		this.specification.setSettings(this.getConfigurationSettings());
 		return this.specification;
 	}
 
-	protected ConfigurationSettingString[] getConfigurationSettings() {
-		ConfigurationSettingString[] values = new ConfigurationSettingString[this.inputWidgets.size()];
+	protected ConfigurationSettingInteger[] getConfigurationSettings() throws InputValidationException {
+		ConfigurationSettingInteger[] values = new ConfigurationSettingInteger[this.inputWidgets.size()];
 		int i = 0;
-		for (StringInput si : this.inputWidgets) {
-			values[i] = new ConfigurationSettingString(si.getValue());
+		for (IntegerInput ii : this.inputWidgets) {
+			values[i] = new ConfigurationSettingInteger(ii.getValue());
 			i++;
 		}
 		return values;
@@ -69,7 +70,7 @@ public class InputParameterStringWidget extends InputParameterWidget {
 
 	@Override
 	public void setInputWidgets(List<? extends InputField> inputWidgetsList) {
-		this.inputWidgets = (List<StringInput>) inputWidgetsList;
+		this.inputWidgets = (List<IntegerInput>) inputWidgetsList;
 	}
 
 
@@ -80,6 +81,6 @@ public class InputParameterStringWidget extends InputParameterWidget {
 
 	@Override
 	public void setSpecification(ConfigurationSpecification config) {
-		this.specification = (ConfigurationSpecificationString) config;
+		this.specification = (ConfigurationSpecificationInteger) config;
 	}
 }
