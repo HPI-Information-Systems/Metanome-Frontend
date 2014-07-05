@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package de.uni_potsdam.hpi.metanome.frontend.client.services;
+package de.uni_potsdam.hpi.metanome.frontend.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecification;
+import de.uni_potsdam.hpi.metanome.results_db.Algorithm;
 
-import java.util.List;
+/**
+ * {@link de.uni_potsdam.hpi.metanome.frontend.client.TestDatabaseHelperServiceAsync}
+ *
+ * @author Jakob Zwiener
+ */
+public interface TestDatabaseHelperServiceAsync {
 
-public interface ParameterServiceAsync {
+  void resetDatabase(AsyncCallback<Void> async);
 
-  public void retrieveParameters(String selectedValue,
-                                 AsyncCallback<List<ConfigurationSpecification>> callback);
-
+  void storeAlgorithmInDatabase(Algorithm algorithm, AsyncCallback<Void> async);
 }

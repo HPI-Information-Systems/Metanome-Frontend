@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-package de.uni_potsdam.hpi.metanome.frontend.client.services;
+package de.uni_potsdam.hpi.metanome.frontend.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.uni_potsdam.hpi.metanome.algorithm_integration.configuration.ConfigurationSpecification;
+import de.uni_potsdam.hpi.metanome.results_db.Algorithm;
 
-import java.util.List;
+/**
+ * {@link de.uni_potsdam.hpi.metanome.frontend.client.TestDatabaseHelperService}
+ *
+ * @author Jakob Zwiener
+ */
+@RemoteServiceRelativePath("testService")
+public interface TestDatabaseHelperService extends RemoteService {
 
-public interface ParameterServiceAsync {
+  void resetDatabase();
 
-  public void retrieveParameters(String selectedValue,
-                                 AsyncCallback<List<ConfigurationSpecification>> callback);
-
+  void storeAlgorithmInDatabase(Algorithm algorithm);
 }
