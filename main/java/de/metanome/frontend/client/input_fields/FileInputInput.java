@@ -20,8 +20,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.metanome.algorithm_integration.AlgorithmConfigurationException;
-import de.metanome.algorithm_integration.configuration.ConfigurationSettingCsvFile;
 import de.metanome.algorithm_integration.configuration.ConfigurationSettingDataSource;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingFileInput;
 import de.metanome.backend.results_db.FileInput;
 import de.metanome.frontend.client.TabWrapper;
 import de.metanome.frontend.client.helpers.FilePathHelper;
@@ -39,7 +39,7 @@ import java.util.Map;
  *
  * @see de.metanome.backend.results_db.FileInput
  */
-public class CsvFileInput extends InputField {
+public class FileInputInput extends InputField {
 
   public ListBoxInput listbox;
   public Map<String, FileInput> fileInputs;
@@ -53,7 +53,7 @@ public class CsvFileInput extends InputField {
    * @param optional        specifies whether a remove button should be displayed
    * @param messageReceiver the message receiver
    */
-  public CsvFileInput(boolean optional, TabWrapper messageReceiver) {
+  public FileInputInput(boolean optional, TabWrapper messageReceiver) {
     super(optional);
 
     this.messageReceiver = messageReceiver;
@@ -123,8 +123,8 @@ public class CsvFileInput extends InputField {
       return;
     }
 
-    if (dataSourceSetting instanceof ConfigurationSettingCsvFile) {
-      ConfigurationSettingCsvFile setting = (ConfigurationSettingCsvFile) dataSourceSetting;
+    if (dataSourceSetting instanceof ConfigurationSettingFileInput) {
+      ConfigurationSettingFileInput setting = (ConfigurationSettingFileInput) dataSourceSetting;
       this.setValues(setting);
     } else {
       throw new AlgorithmConfigurationException("This is not a csv file setting.");
@@ -136,7 +136,7 @@ public class CsvFileInput extends InputField {
    *
    * @return the widget's settings
    */
-  public ConfigurationSettingCsvFile getValues() throws InputValidationException {
+  public ConfigurationSettingFileInput getValues() throws InputValidationException {
     String selectedValue = this.listbox.getSelectedValue();
 
     if (selectedValue.equals("--")) {
@@ -154,7 +154,7 @@ public class CsvFileInput extends InputField {
    * @param setting the settings to set
    * @throws AlgorithmConfigurationException if no file inputs are set
    */
-  public void setValues(ConfigurationSettingCsvFile setting)
+  public void setValues(ConfigurationSettingFileInput setting)
       throws AlgorithmConfigurationException {
     for (Map.Entry<String, FileInput> input : this.fileInputs.entrySet()) {
       FileInput current = input.getValue();
@@ -172,8 +172,8 @@ public class CsvFileInput extends InputField {
    * @param fileInput the file input
    * @return the setting generated from the file input
    */
-  protected ConfigurationSettingCsvFile getCurrentSetting(FileInput fileInput) {
-    ConfigurationSettingCsvFile setting = new ConfigurationSettingCsvFile();
+  protected ConfigurationSettingFileInput getCurrentSetting(FileInput fileInput) {
+    ConfigurationSettingFileInput setting = new ConfigurationSettingFileInput();
 
     setting.setFileName(fileInput.getFileName());
     setting.setEscapeChar(fileInput.getEscapechar());

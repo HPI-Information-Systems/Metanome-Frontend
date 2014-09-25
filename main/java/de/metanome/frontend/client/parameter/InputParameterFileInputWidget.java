@@ -17,44 +17,45 @@
 package de.metanome.frontend.client.parameter;
 
 import de.metanome.algorithm_integration.AlgorithmConfigurationException;
+import de.metanome.algorithm_integration.configuration.ConfigurationRequirement;
+import de.metanome.algorithm_integration.configuration.ConfigurationRequirementFileInput;
 import de.metanome.algorithm_integration.configuration.ConfigurationSettingDataSource;
-import de.metanome.algorithm_integration.configuration.ConfigurationSettingSqlIterator;
-import de.metanome.algorithm_integration.configuration.ConfigurationSpecification;
-import de.metanome.algorithm_integration.configuration.ConfigurationSpecificationSqlIterator;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingFileInput;
 import de.metanome.frontend.client.TabWrapper;
 import de.metanome.frontend.client.helpers.InputValidationException;
+import de.metanome.frontend.client.input_fields.FileInputInput;
 import de.metanome.frontend.client.input_fields.InputField;
-import de.metanome.frontend.client.input_fields.SqlIteratorInput;
 
 import java.util.List;
 
-public class InputParameterSqlIteratorWidget extends InputParameterDataSourceWidget {
+public class InputParameterFileInputWidget extends InputParameterDataSourceWidget {
 
-  protected List<SqlIteratorInput> inputWidgets;
+  protected List<FileInputInput> inputWidgets;
   protected TabWrapper messageReceiver;
-  /**
-   * Corresponding inputParameter, where the value is going to be written
-   */
-  private ConfigurationSpecificationSqlIterator specification;
 
-  public InputParameterSqlIteratorWidget(ConfigurationSpecificationSqlIterator config,
-                                         TabWrapper wrapper) {
-    super(config, wrapper);
+  /**
+   * Corresponding ConfigurationSpecification, where the value is going to be written
+   */
+  private ConfigurationRequirementFileInput specification;
+
+  public InputParameterFileInputWidget(ConfigurationRequirementFileInput configSpec,
+                                       TabWrapper messageReceiver) {
+    super(configSpec, messageReceiver);
   }
 
   @Override
   protected void addInputField(boolean optional) {
-    SqlIteratorInput widget = new SqlIteratorInput(optional, messageReceiver);
+    FileInputInput widget = new FileInputInput(optional, messageReceiver);
     this.inputWidgets.add(widget);
-    this.add(widget);
+    int index = (this.getWidgetCount() < 1 ? 0 : this.getWidgetCount() - 1);
+    this.insert(widget, index);
   }
 
   @Override
-  public ConfigurationSpecification getUpdatedSpecification() throws InputValidationException {
+  public ConfigurationRequirementFileInput getUpdatedSpecification()
+      throws InputValidationException {
     // Build an array with the actual number of set values.
-    ConfigurationSettingSqlIterator[]
-        values =
-        new ConfigurationSettingSqlIterator[inputWidgets.size()];
+    ConfigurationSettingFileInput[] values = new ConfigurationSettingFileInput[inputWidgets.size()];
 
     for (int i = 0; i < inputWidgets.size(); i++) {
       values[i] = inputWidgets.get(i).getValues();
@@ -62,13 +63,13 @@ public class InputParameterSqlIteratorWidget extends InputParameterDataSourceWid
 
     specification.setSettings(values);
 
-    return this.specification;
+    return specification;
   }
 
   @Override
   public void setDataSource(ConfigurationSettingDataSource dataSource)
       throws AlgorithmConfigurationException {
-    this.inputWidgets.get(0).setValues((ConfigurationSettingSqlIterator) dataSource);
+    this.inputWidgets.get(0).selectDataSource(dataSource);
   }
 
   @Override
@@ -80,27 +81,27 @@ public class InputParameterSqlIteratorWidget extends InputParameterDataSourceWid
 
   @Override
   public boolean accepts(ConfigurationSettingDataSource setting) {
-    return setting instanceof ConfigurationSettingSqlIterator;
+    return setting instanceof ConfigurationSettingFileInput;
   }
 
   @Override
-  public List<SqlIteratorInput> getInputWidgets() {
+  public List<? extends InputField> getInputWidgets() {
     return this.inputWidgets;
   }
 
   @Override
   public void setInputWidgets(List<? extends InputField> inputWidgetsList) {
-    this.inputWidgets = (List<SqlIteratorInput>) inputWidgetsList;
+    this.inputWidgets = (List<FileInputInput>) inputWidgetsList;
   }
 
   @Override
-  public ConfigurationSpecification getSpecification() {
+  public ConfigurationRequirement getSpecification() {
     return this.specification;
   }
 
   @Override
-  public void setSpecification(ConfigurationSpecification config) {
-    this.specification = (ConfigurationSpecificationSqlIterator) config;
+  public void setSpecification(ConfigurationRequirement config) {
+    this.specification = (ConfigurationRequirementFileInput) config;
   }
 
   @Override

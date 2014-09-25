@@ -19,21 +19,19 @@ package de.metanome.frontend.client.input_fields;
 import com.google.gwt.junit.client.GWTTestCase;
 
 import de.metanome.algorithm_integration.AlgorithmConfigurationException;
-import de.metanome.algorithm_integration.configuration.ConfigurationSettingCsvFile;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingFileInput;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingRelationalInput;
 import de.metanome.backend.results_db.FileInput;
 import de.metanome.frontend.client.TabWrapper;
 import de.metanome.frontend.client.TestHelper;
 import de.metanome.frontend.client.helpers.InputValidationException;
 
-/**
- * Tests for {@link de.metanome.frontend.client.input_fields.CsvFileInput}
- */
-public class GwtTestCsvFileInput extends GWTTestCase {
+public class GwtTestRelationalInputInput extends GWTTestCase {
 
   /**
-   * Test method for {@link de.metanome.frontend.client.input_fields.CsvFileInput#CsvFileInput(boolean,
-   * de.metanome.frontend.client.TabWrapper)} <p/> After calling the constructor the optional
-   * parameter should be set correctly and all widgets should be initialized.
+   * Test method for {@link de.metanome.frontend.client.input_fields.RelationalInputInput#RelationalInputInput(boolean, de.metanome.frontend.client.TabWrapper)}
+   * <p/> After calling the constructor the optional parameter should be set correctly and all
+   * widgets should be initialized.
    */
   public void testConstructor() {
     // Set up
@@ -46,20 +44,19 @@ public class GwtTestCsvFileInput extends GWTTestCase {
     boolean expectedOptional = true;
 
     // Execute functionality
-    CsvFileInput actualCsvFileInput = new CsvFileInput(expectedOptional, tabWrapper);
+    RelationalInputInput actualRelationalInputInput = new RelationalInputInput(expectedOptional, tabWrapper);
 
     // Check result
-    assertEquals(expectedOptional, actualCsvFileInput.isOptional);
-    assertEquals(2, actualCsvFileInput.getWidgetCount());
-    assertNotNull(actualCsvFileInput.listbox);
+    assertEquals(expectedOptional, actualRelationalInputInput.isOptional);
+    assertEquals(2, actualRelationalInputInput.getWidgetCount());
+    assertNotNull(actualRelationalInputInput.listbox);
 
     // Cleanup
     TestHelper.resetDatabaseSync();
   }
 
   /**
-   * Test method for {@link de.metanome.frontend.client.input_fields.CsvFileInput#getValues()} and
-   * {@link de.metanome.frontend.client.input_fields.CsvFileInput#setValues(de.metanome.algorithm_integration.configuration.ConfigurationSettingCsvFile)}
+   * Test method for {@link RelationalInputInput#getValues()} and {@link RelationalInputInput#setValues(de.metanome.algorithm_integration.configuration.ConfigurationSettingRelationalInput)}
    * <p/> The getValues and setValues methods should set and retrieve settings.
    */
   public void testGetSetValues() {
@@ -70,34 +67,35 @@ public class GwtTestCsvFileInput extends GWTTestCase {
     fileInput.setFileName("filename");
 
     // Expected values
-    final ConfigurationSettingCsvFile expectedSetting =
-        new ConfigurationSettingCsvFile("filename");
+    final ConfigurationSettingRelationalInput expectedSetting =
+        new ConfigurationSettingFileInput("filename");
 
     // Initialize CsvFileInput (waiting for fetching all current file inputs)
-    final CsvFileInput csvFileInputs = new CsvFileInput(false, new TabWrapper());
+    final RelationalInputInput relationalInputInputs = new RelationalInputInput(false, new TabWrapper());
 
-    csvFileInputs.listbox.addValue("filename");
-    csvFileInputs.fileInputs.put("filename", fileInput);
+    relationalInputInputs.listbox.addValue("filename");
+    relationalInputInputs.inputs.put("filename", fileInput);
 
     try {
-      csvFileInputs.setValues(expectedSetting);
+      relationalInputInputs.setValues(expectedSetting);
     } catch (AlgorithmConfigurationException e) {
       fail();
     }
 
-    ConfigurationSettingCsvFile actualSetting = null;
+    ConfigurationSettingRelationalInput actualSetting = null;
     try {
-      actualSetting = csvFileInputs.getValues();
-    } catch (InputValidationException e) {
+      actualSetting = relationalInputInputs.getValues();
+    } catch (InputValidationException | AlgorithmConfigurationException e) {
       fail();
     }
 
     // Check result
-    assertEquals(expectedSetting.getFileName(), actualSetting.getFileName());
+    assertEquals(expectedSetting.getValueAsString(), actualSetting.getValueAsString());
 
     // Cleanup
     TestHelper.resetDatabaseSync();
   }
+
 
   @Override
   public String getModuleName() {

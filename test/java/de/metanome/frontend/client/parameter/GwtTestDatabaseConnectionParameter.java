@@ -16,21 +16,20 @@
 
 package de.metanome.frontend.client.parameter;
 
-import com.google.common.base.Joiner;
 import com.google.gwt.junit.client.GWTTestCase;
 
 import de.metanome.algorithm_integration.AlgorithmConfigurationException;
+import de.metanome.algorithm_integration.configuration.ConfigurationRequirementDatabaseConnection;
 import de.metanome.algorithm_integration.configuration.ConfigurationSettingDataSource;
-import de.metanome.algorithm_integration.configuration.ConfigurationSettingSqlIterator;
-import de.metanome.algorithm_integration.configuration.ConfigurationSpecificationSqlIterator;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingDatabaseConnection;
 import de.metanome.algorithm_integration.configuration.DbSystem;
 import de.metanome.backend.results_db.DatabaseConnection;
 import de.metanome.frontend.client.TabWrapper;
 import de.metanome.frontend.client.TestHelper;
 import de.metanome.frontend.client.helpers.InputValidationException;
-import de.metanome.frontend.client.input_fields.SqlIteratorInput;
+import de.metanome.frontend.client.input_fields.DatabaseConnectionInput;
 
-public class GwtTestSqlIteratorParameter extends GWTTestCase {
+public class GwtTestDatabaseConnectionParameter extends GWTTestCase {
 
   private String aUrl = "url";
   private String aPassword = "password";
@@ -53,10 +52,10 @@ public class GwtTestSqlIteratorParameter extends GWTTestCase {
     databaseConnection.setUsername(aUser);
     databaseConnection.setSystem(aSystem);
 
-    SqlIteratorInput widget = new SqlIteratorInput(false, tabWrapper);
-    ConfigurationSettingSqlIterator
+    DatabaseConnectionInput widget = new DatabaseConnectionInput(false, tabWrapper);
+    ConfigurationSettingDatabaseConnection
         setting =
-        new ConfigurationSettingSqlIterator(aUrl, aUser, aPassword, aSystem);
+        new ConfigurationSettingDatabaseConnection(aUrl, aUser, aPassword, aSystem);
 
     widget.databaseConnections.put(aUrl, databaseConnection);
     widget.listbox.addValue("--");
@@ -86,22 +85,24 @@ public class GwtTestSqlIteratorParameter extends GWTTestCase {
 
     TabWrapper tabWrapper = new TabWrapper();
 
+    String expectedIdentifier = aUrl + "; " + aUser + "; " + aSystem;
+
     DatabaseConnection databaseConnection = new DatabaseConnection();
     databaseConnection.setUrl(aUrl);
     databaseConnection.setPassword(aPassword);
     databaseConnection.setUsername(aUser);
     databaseConnection.setSystem(aSystem);
 
-    ConfigurationSettingSqlIterator
+    ConfigurationSettingDatabaseConnection
         setting =
-        new ConfigurationSettingSqlIterator(aUrl, aUser, aPassword, aSystem);
+        new ConfigurationSettingDatabaseConnection(aUrl, aUser, aPassword, aSystem);
 
-    ConfigurationSpecificationSqlIterator
+    ConfigurationRequirementDatabaseConnection
         configSpec =
-        new ConfigurationSpecificationSqlIterator("test");
-    InputParameterSqlIteratorWidget
+        new ConfigurationRequirementDatabaseConnection("test");
+    InputParameterDatabaseConnectionWidget
         dataSourceWidget =
-        new InputParameterSqlIteratorWidget(configSpec, tabWrapper);
+        new InputParameterDatabaseConnectionWidget(configSpec, tabWrapper);
 
     dataSourceWidget.inputWidgets.get(0).listbox.addValue(aUrl);
     dataSourceWidget.inputWidgets.get(0).databaseConnections.put(aUrl, databaseConnection);
@@ -109,15 +110,15 @@ public class GwtTestSqlIteratorParameter extends GWTTestCase {
     // Execute
     dataSourceWidget.setDataSource(setting);
 
-    assertTrue(((SqlIteratorInput) dataSourceWidget.getWidget(0)).listbox.getValues().size() == 1);
+    assertTrue(
+        ((DatabaseConnectionInput) dataSourceWidget.getWidget(0)).listbox.getValues().size() == 1);
 
     ConfigurationSettingDataSource retrievedSetting = null;
     retrievedSetting = (ConfigurationSettingDataSource) dataSourceWidget
         .getUpdatedSpecification()
         .getSettings()[0];
 
-    assertEquals(Joiner.on(';').join(aUrl, aUser, aPassword, aSystem),
-                 retrievedSetting.getValueAsString());
+    assertEquals(expectedIdentifier, retrievedSetting.getValueAsString());
 
     // Cleanup
     TestHelper.resetDatabaseSync();

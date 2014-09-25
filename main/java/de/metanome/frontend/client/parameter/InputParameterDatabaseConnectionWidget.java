@@ -17,45 +17,44 @@
 package de.metanome.frontend.client.parameter;
 
 import de.metanome.algorithm_integration.AlgorithmConfigurationException;
-import de.metanome.algorithm_integration.configuration.ConfigurationSettingCsvFile;
+import de.metanome.algorithm_integration.configuration.ConfigurationRequirement;
+import de.metanome.algorithm_integration.configuration.ConfigurationRequirementDatabaseConnection;
 import de.metanome.algorithm_integration.configuration.ConfigurationSettingDataSource;
-import de.metanome.algorithm_integration.configuration.ConfigurationSpecification;
-import de.metanome.algorithm_integration.configuration.ConfigurationSpecificationCsvFile;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingDatabaseConnection;
 import de.metanome.frontend.client.TabWrapper;
 import de.metanome.frontend.client.helpers.InputValidationException;
-import de.metanome.frontend.client.input_fields.CsvFileInput;
+import de.metanome.frontend.client.input_fields.DatabaseConnectionInput;
 import de.metanome.frontend.client.input_fields.InputField;
 
 import java.util.List;
 
-public class InputParameterCsvFileWidget extends InputParameterDataSourceWidget {
+public class InputParameterDatabaseConnectionWidget extends InputParameterDataSourceWidget {
 
-  protected List<CsvFileInput> inputWidgets;
+  protected List<DatabaseConnectionInput> inputWidgets;
   protected TabWrapper messageReceiver;
-
   /**
-   * Corresponding ConfigurationSpecification, where the value is going to be written
+   * Corresponding inputParameter, where the value is going to be written
    */
-  private ConfigurationSpecificationCsvFile specification;
+  private ConfigurationRequirementDatabaseConnection specification;
 
-  public InputParameterCsvFileWidget(ConfigurationSpecificationCsvFile configSpec,
-                                     TabWrapper messageReceiver) {
-    super(configSpec, messageReceiver);
+  public InputParameterDatabaseConnectionWidget(ConfigurationRequirementDatabaseConnection config,
+                                                TabWrapper wrapper) {
+    super(config, wrapper);
   }
 
   @Override
   protected void addInputField(boolean optional) {
-    CsvFileInput widget = new CsvFileInput(optional, messageReceiver);
+    DatabaseConnectionInput widget = new DatabaseConnectionInput(optional, messageReceiver);
     this.inputWidgets.add(widget);
-    int index = (this.getWidgetCount() < 1 ? 0 : this.getWidgetCount() - 1);
-    this.insert(widget, index);
+    this.add(widget);
   }
 
   @Override
-  public ConfigurationSpecificationCsvFile getUpdatedSpecification()
-      throws InputValidationException {
+  public ConfigurationRequirement getUpdatedSpecification() throws InputValidationException {
     // Build an array with the actual number of set values.
-    ConfigurationSettingCsvFile[] values = new ConfigurationSettingCsvFile[inputWidgets.size()];
+    ConfigurationSettingDatabaseConnection[]
+        values =
+        new ConfigurationSettingDatabaseConnection[inputWidgets.size()];
 
     for (int i = 0; i < inputWidgets.size(); i++) {
       values[i] = inputWidgets.get(i).getValues();
@@ -63,13 +62,13 @@ public class InputParameterCsvFileWidget extends InputParameterDataSourceWidget 
 
     specification.setSettings(values);
 
-    return specification;
+    return this.specification;
   }
 
   @Override
   public void setDataSource(ConfigurationSettingDataSource dataSource)
       throws AlgorithmConfigurationException {
-    this.inputWidgets.get(0).selectDataSource(dataSource);
+    this.inputWidgets.get(0).setValues((ConfigurationSettingDatabaseConnection) dataSource);
   }
 
   @Override
@@ -81,27 +80,27 @@ public class InputParameterCsvFileWidget extends InputParameterDataSourceWidget 
 
   @Override
   public boolean accepts(ConfigurationSettingDataSource setting) {
-    return setting instanceof ConfigurationSettingCsvFile;
+    return setting instanceof ConfigurationSettingDatabaseConnection;
   }
 
   @Override
-  public List<? extends InputField> getInputWidgets() {
+  public List<DatabaseConnectionInput> getInputWidgets() {
     return this.inputWidgets;
   }
 
   @Override
   public void setInputWidgets(List<? extends InputField> inputWidgetsList) {
-    this.inputWidgets = (List<CsvFileInput>) inputWidgetsList;
+    this.inputWidgets = (List<DatabaseConnectionInput>) inputWidgetsList;
   }
 
   @Override
-  public ConfigurationSpecification getSpecification() {
+  public ConfigurationRequirement getSpecification() {
     return this.specification;
   }
 
   @Override
-  public void setSpecification(ConfigurationSpecification config) {
-    this.specification = (ConfigurationSpecificationCsvFile) config;
+  public void setSpecification(ConfigurationRequirement config) {
+    this.specification = (ConfigurationRequirementDatabaseConnection) config;
   }
 
   @Override

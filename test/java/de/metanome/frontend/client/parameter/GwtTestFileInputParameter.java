@@ -19,16 +19,16 @@ package de.metanome.frontend.client.parameter;
 import com.google.gwt.junit.client.GWTTestCase;
 
 import de.metanome.algorithm_integration.AlgorithmConfigurationException;
-import de.metanome.algorithm_integration.configuration.ConfigurationSettingCsvFile;
+import de.metanome.algorithm_integration.configuration.ConfigurationRequirementFileInput;
 import de.metanome.algorithm_integration.configuration.ConfigurationSettingDataSource;
-import de.metanome.algorithm_integration.configuration.ConfigurationSpecificationCsvFile;
+import de.metanome.algorithm_integration.configuration.ConfigurationSettingFileInput;
 import de.metanome.backend.results_db.FileInput;
 import de.metanome.frontend.client.TabWrapper;
 import de.metanome.frontend.client.TestHelper;
 import de.metanome.frontend.client.helpers.InputValidationException;
-import de.metanome.frontend.client.input_fields.CsvFileInput;
+import de.metanome.frontend.client.input_fields.FileInputInput;
 
-public class GwtTestCsvFileParameter extends GWTTestCase {
+public class GwtTestFileInputParameter extends GWTTestCase {
 
   private String aFileName = "inputA.csv";
 
@@ -45,8 +45,8 @@ public class GwtTestCsvFileParameter extends GWTTestCase {
     FileInput fileInput = new FileInput();
     fileInput.setFileName(aFileName);
 
-    CsvFileInput widget = new CsvFileInput(false, tabWrapper);
-    ConfigurationSettingCsvFile setting = new ConfigurationSettingCsvFile();
+    FileInputInput widget = new FileInputInput(false, tabWrapper);
+    ConfigurationSettingFileInput setting = new ConfigurationSettingFileInput();
     setting.setFileName(aFileName);
 
     widget.listbox.addValue("--");
@@ -77,13 +77,13 @@ public class GwtTestCsvFileParameter extends GWTTestCase {
     FileInput fileInput = new FileInput();
     fileInput.setFileName(aFileName);
 
-    ConfigurationSettingCsvFile setting = new ConfigurationSettingCsvFile();
+    ConfigurationSettingFileInput setting = new ConfigurationSettingFileInput();
     setting.setFileName(aFileName);
 
-    ConfigurationSpecificationCsvFile configSpec = new ConfigurationSpecificationCsvFile("test");
-    InputParameterCsvFileWidget
+    ConfigurationRequirementFileInput configSpec = new ConfigurationRequirementFileInput("test");
+    InputParameterFileInputWidget
         dataSourceWidget =
-        new InputParameterCsvFileWidget(configSpec, tabWrapper);
+        new InputParameterFileInputWidget(configSpec, tabWrapper);
 
     dataSourceWidget.inputWidgets.get(0).listbox.addValue(aFileName);
     dataSourceWidget.inputWidgets.get(0).fileInputs.put(aFileName, fileInput);
@@ -92,7 +92,7 @@ public class GwtTestCsvFileParameter extends GWTTestCase {
     dataSourceWidget.setDataSource(setting);
 
     // Check
-    assertTrue(((CsvFileInput) dataSourceWidget.getWidget(0)).listbox.getValues().size() == 1);
+    assertTrue(((FileInputInput) dataSourceWidget.getWidget(0)).listbox.getValues().size() == 1);
 
     ConfigurationSettingDataSource retrievedSetting = null;
     try {

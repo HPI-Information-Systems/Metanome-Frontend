@@ -18,20 +18,11 @@ package de.metanome.frontend.client.services;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.metanome.algorithm_integration.configuration.ConfigurationRequirement;
-import de.metanome.algorithm_integration.results.Result;
+import de.metanome.backend.results_db.Input;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public interface ExecutionServiceAsync {
+public interface InputServiceAsync {
 
-  public void executeAlgorithm(String algorithmName,
-                               String executionIdentifier,
-                               List<ConfigurationRequirement> parameters,
-                               AsyncCallback<Long> callback);
-
-  public void fetchNewResults(String algorithmName, AsyncCallback<ArrayList<Result>> callback);
-
-  public void fetchProgress(String executionIdentifier, AsyncCallback<Float> callback);
+  void listInputs(AsyncCallback<List<Input>> async);
 }
