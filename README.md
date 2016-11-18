@@ -7,4 +7,4 @@ The frontend enables users to interact with the [Metanome platform](https://gith
 More information about the [Metanome platform](https://github.com/HPI-Information-Systems/Metanome) can be found in the corresponding 
 repository.
 
-The Metanome frontend is supplied under Apache License. You can use and extend the tool to develop your own profiling algorithms. 
+The Metanome frontend is supplied under Apache License. You can use and extend the frontend to interact with the Metanome platform. 
