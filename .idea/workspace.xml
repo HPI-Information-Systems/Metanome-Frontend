@@ -2,27 +2,127 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ee816ad-7e08-4d23-9bc8-f05b9c5b3f7c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/java/de/metanome/frontend/DatabaseInitializer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/hibernate.cfg.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_appearances.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_astrology.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_kepler.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_planets.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_planetz.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_satellites.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/WDC_science.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/fd_reduced_15.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/inputA.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/inputB.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/inputC.tsv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/multiple_files/WDC_age.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/multiple_files/WDC_symbols.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/multiple_files/nested/WDC_astronomical.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/main/resources/inputData/multiple_files/nested/WDC_game.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/about/about.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/about/about.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/algorithm-execution.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/algorithms.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/availableAlgorithmFiles.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/availableInputFiles.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/countResults.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/datasource.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/delete.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/execution.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/executions.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/file.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/inputStore.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/loadResults.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/parameter.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/results.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/backend/stopExecution.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/config.json" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/font.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/history/history.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/history/history.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/index.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/index.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/new/new.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/new/new.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/result/result.controller.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/app/result/result.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap-theme.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap-theme.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap-theme.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap-theme.min.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/css/bootstrap.min.css.map" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/fonts/glyphicons-halflings-regular.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/fonts/glyphicons-halflings-regular.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/fonts/glyphicons-halflings-regular.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/js/bootstrap.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/js/bootstrap.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/bootstrap-3.3.6/js/npm.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/HELP-US-OUT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/css/font-awesome.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/css/font-awesome.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/fonts/FontAwesome.otf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/fonts/fontawesome-webfont.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/animated.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/bordered-pulled.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/core.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/fixed-width.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/font-awesome.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/icons.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/larger.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/list.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/mixins.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/path.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/rotated-flipped.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/stacked.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/less/variables.less" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_animated.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_bordered-pulled.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_core.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_fixed-width.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_icons.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_larger.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_list.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_mixins.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_path.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_rotated-flipped.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_stacked.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/_variables.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/font-awesome-4.3.0/scss/font-awesome.scss" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/images/logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/images/metanome.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/css/material-design-iconic-font.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.eot" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.woff" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/material-design-iconic-font-2.2.0/fonts/Material-Design-Iconic-Font.woff2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/new-algorithm.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/new-datasource.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/settings-datasource.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/assets/visualization.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/favicon.ico" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/index.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/scripts/app-af84113c.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/scripts/vendor-b03a9bff.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/styles/app-c8c424cd.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/styles/vendor-75c22ecb.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/CSS/circle-packing.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/CSS/prefix-tree.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/CSS/sunburst.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/CirclePacking.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/D3Diagrams/d3-prefix-tree.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/D3Diagrams/d3-sequences-sunburst.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/D3Diagrams/d3-zoomable-circle-packing.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/D3Diagrams/d3-zoomable-sunburst.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/PrefixTree.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/UCChistogram.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/ZoomableSunburst.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/bubblediagram.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/clusterBubbles.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/dimple.v2.1.2.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/uccPlotter.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/metanome/visualization/uccdiagram.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/backend/availableInputFiles.js" afterPath="$PROJECT_DIR$/src/app/backend/availableInputFiles.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/new/new.controller.js" afterPath="$PROJECT_DIR$/src/app/new/new.controller.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/result/result.controller.js" afterPath="$PROJECT_DIR$/src/app/result/result.controller.js" />
     </list>
     <ignored path="Metanome-Frontend.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +136,32 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Metanome-Frontend" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="new.controller.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/new/new.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="888">
+              <caret line="1592" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="1592" selection-end-column="0" />
+              <folding>
+                <marker date="1483170611000" expanded="true" signature="30935:31234" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="36860:37030" ph="..." />
+                <marker date="1483170611000" expanded="false" signature="59567:59581" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="59681:59840" ph="..." />
+                <marker date="1483170611000" expanded="false" signature="60218:60242" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="60288:60517" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="60543:60909" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="60935:61222" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="61270:61429" ph="..." />
+                <marker date="1483170611000" expanded="false" signature="61804:61828" ph="..." />
+                <marker date="1483170611000" expanded="true" signature="62068:62227" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -110,7 +236,69 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="metanome" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -125,6 +313,178 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="result" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="new" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Metanome-Frontend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="about" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -151,9 +511,11 @@
     <property name="settings.editor.selected.configurable" value="Scala Compiler" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/about/about.html" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/src/app/about/about.html" />
+    <property name="editor.config.accepted" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -868,12 +1230,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1483139261804</updated>
-      <workItem from="1483139273635" duration="739000" />
+      <workItem from="1483139273635" duration="2365000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="739000" />
+    <option name="totallyTimeSpent" value="2365000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="873" extended-state="6" />
@@ -901,6 +1263,29 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -916,5 +1301,31 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/app/new/new.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="888">
+          <caret line="1592" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="1592" selection-end-column="0" />
+          <folding>
+            <marker date="1483170611000" expanded="true" signature="30935:31234" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="36860:37030" ph="..." />
+            <marker date="1483170611000" expanded="false" signature="59567:59581" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="59681:59840" ph="..." />
+            <marker date="1483170611000" expanded="false" signature="60218:60242" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="60288:60517" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="60543:60909" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="60935:61222" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="61270:61429" ph="..." />
+            <marker date="1483170611000" expanded="false" signature="61804:61828" ph="..." />
+            <marker date="1483170611000" expanded="true" signature="62068:62227" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
