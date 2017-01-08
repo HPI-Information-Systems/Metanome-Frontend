@@ -40,8 +40,14 @@
             <td md-cell ng-click="showResult(c)">{{c.inputs}}</td>
             <td md-cell ng-click="showResult(c)">{{c.resultType}}</td>
             <td md-cell>
-              <i class="zmdi zmdi-delete zmdi-hc-lg datasourceIcon" ng-click="confirmDelete(c)"></i>
+              <div ng-if="c.running">
+                <i class="zmdi zmdi-stop zmdi-hc-lg datasourceIcon" ng-click="confirmStop(c)"></i>
+              </div>
+              <div ng-if="!c.running">
+                <i class="zmdi zmdi-delete zmdi-hc-lg datasourceIcon" ng-click="confirmDelete(c)"></i>
+              </div>
             </td>
+            </tr>
           </tr>
         </tbody>
       </table>

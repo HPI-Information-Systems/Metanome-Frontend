@@ -11,7 +11,8 @@ angular.module('Metanome', [
   'angularSpinner',
   'md.data.table',
   'timer',
-  'Metanome.config'
+  'Metanome.config',
+  'toastr'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $qProvider) {
     $urlRouterProvider.otherwise('/new');

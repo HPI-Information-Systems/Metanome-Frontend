@@ -15,7 +15,7 @@ var app = angular.module('Metanome')
       })
   });
 
-app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $location, ngDialog, $timeout, Delete, usSpinnerService) {
+app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $location, ngDialog, $timeout, Delete, StopExecution, usSpinnerService) {
 
   // ** VARIABLE DEFINITIONS **
   // **************************
@@ -182,11 +182,45 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
         })
       }
 
+
+  /**
+   * Opens a dialog, where the user has to confirm that he wants to stop the given execution.
+   * If the user confirms, the execution is stopped.
+   * @param execution the execution
+   */
+  function confirmStop(execution) {
+    $scope.confirmText = 'Are you sure you want to stop the algorithm execution?';
+    $scope.confirmItem = execution;
+
+    $scope.confirmFunction = function () {
+      $scope.startSpin();
+      StopExectuion.stop({id: $scope.confirmItem.id}, function () {
+        $scope.cancelFunction();
+        $scope.loadExecutions()
+      });
+      $scope.stopSpin();
+      ngDialog.closeAll();
+    };
+
+    ngDialog.openConfirm({
+                           /*jshint multistr: true */
+                           template: '\
+                <h3>Confirm</h3>\
+                <p>{{$parent.confirmText}}</p>\
+                <div class="ngdialog-buttons">\
+                    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="closeThisDialog(0)">No</button>\
+                    <button type="button" class="ngdialog-button ngdialog-button-warning" ng-click="$parent.confirmFunction(1)">Yes</button>\
+                </div>',
+                           plain: true,
+                           scope: $scope
+                         })
+  }
   // ** EXPORT FUNCTIONS **
   // **********************
 
   $scope.loadExecutions = loadExecutions;
   $scope.confirmDelete = confirmDelete;
+  $scope.confirmStop = confirmStop;
   $scope.showResult = showResult;
   $scope.startSpin = startSpin;
   $scope.stopSpin = stopSpin;
