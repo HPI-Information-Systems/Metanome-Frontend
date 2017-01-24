@@ -14,15 +14,15 @@ var $ = require('gulp-load-plugins')();
 
 module.exports = function (options) {
 
-  var config = require('../src/app/scripts/config.js');
+  var config = require('../config.js');
 
   gulp.task('config', function () {
-    fs.writeFileSync(options.src + '/app/config.json',
+    fs.writeFileSync('./config.json',
                      JSON.stringify(config[ENV]));
-    gulp.src(options.src + '/app/config.json')
+    gulp.src('./config.json')
       .pipe(gulpNgConfig('Metanome.config', {
       }))
-      .pipe(gulp.dest(options.src + '/app/'))
+      .pipe(gulp.dest(options.src + '/app/scripts'))
   });
 
 };
