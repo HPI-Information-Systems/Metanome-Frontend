@@ -34,7 +34,7 @@
     }
     var data_url = "UCCResultAnalyzer/UCCHistograms.json";
     if (!UrlExists(data_url)) {
-      data_url = "http://localhost:8888/src/visualization/UCCResultAnalyzer/UCCHistograms.json";
+      data_url = ENV_VARS.apiURL + "/src/visualization/UCCResultAnalyzer/UCCHistograms.json";
     }
 
     d3.json(data_url, function (data) {

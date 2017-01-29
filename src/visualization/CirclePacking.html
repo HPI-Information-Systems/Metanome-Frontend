@@ -29,7 +29,7 @@
     }
     var data_url = "FDResultAnalyzer/PrefixTree.json";
     if (!UrlExists(data_url)) {
-      data_url = "http://localhost:8888/src/visualization/FDResultAnalyzer/PrefixTree.json";
+      data_url = ENV_VARS.apiURL + "/src/visualization/FDResultAnalyzer/PrefixTree.json";
     }
 
     d3_zoomable_circle_packing(data_url,
