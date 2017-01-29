@@ -21,7 +21,6 @@ module.exports = function (options) {
                      JSON.stringify(config[ENV]));
     gulp.src('./config.json')
       .pipe(gulpNgConfig('Metanome.config', {
-        createModule: false
       }))
       .pipe(gulp.dest(options.src + '/app/scripts'))
   });
