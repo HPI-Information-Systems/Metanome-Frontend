@@ -6,3 +6,8 @@
 /.settings
 npm-modules
 src/app/conf*
+metanome
+bower_components
+config.json
+metanome
+node_modules
