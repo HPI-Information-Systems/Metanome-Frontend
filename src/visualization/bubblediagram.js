@@ -14,7 +14,7 @@ function initializeClusterDiagram(target_id, second_target_id) {
 
   var data_url = "UCCResultAnalyzer/UCCClusters.json";
   if (!UrlExists(data_url)) {
-    data_url = "http://localhost:8888/src/visualization/UCCResultAnalyzer/UCCClusters.json";
+    data_url = "http://localhost:8081/src/visualization/UCCResultAnalyzer/UCCClusters.json";
   }
 
   d3.json(data_url, function (data) {
