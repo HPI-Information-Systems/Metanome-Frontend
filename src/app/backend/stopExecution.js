@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Metanome')
-  .factory('StopExecution', ['$resource', 'EnvironmentConfig',
-    function ($resource, EnvironmentConfig) {
-      return $resource(EnvironmentConfig.API + '/api/algorithm-execution/stop/:identifier', {}, {
+  .factory('StopExecution', ['$resource', 'ENV_VARS',
+    function ($resource, ENV_VARS) {
+      return $resource(ENV_VARS.API + '/api/algorithm-execution/stop/:identifier', {}, {
         stop: {
           method: 'POST',
           params: {

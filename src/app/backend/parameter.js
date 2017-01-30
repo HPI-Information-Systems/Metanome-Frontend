@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Metanome')
-  .factory('Parameter', ['$resource', 'EnvironmentConfig',
-    function ($resource, EnvironmentConfig) {
-      return $resource(EnvironmentConfig.API + '/api/parameter/:algorithm/:what', {}, {
+  .factory('Parameter', ['$resource', 'ENV_VARS',
+    function ($resource, ENV_VARS) {
+      return $resource(ENV_VARS.API + '/api/parameter/:algorithm/:what', {}, {
         get: {
           method: 'GET',
           params: {

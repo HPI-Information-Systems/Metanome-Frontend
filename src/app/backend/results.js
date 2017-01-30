@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Metanome')
-  .factory('Results', ['$resource', 'EnvironmentConfig',
-    function ($resource, EnvironmentConfig) {
-      return $resource(EnvironmentConfig.API + '/api/result-store/:method/:type/:sort/:ascending/:from/:to', {}, {
+  .factory('Results', ['$resource', 'ENV_VARS',
+    function ($resource, ENV_VARS) {
+      return $resource(ENV_VARS.API + '/api/result-store/:method/:type/:sort/:ascending/:from/:to', {}, {
         get: {
           method: 'GET',
           params: {

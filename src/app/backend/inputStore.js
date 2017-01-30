@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Metanome')
-  .factory('InputStore', ['$resource', 'EnvironmentConfig',
-    function ($resource, EnvironmentConfig) {
-      return $resource(EnvironmentConfig.API + '/api/:type/:action', {}, {
+  .factory('InputStore', ['$resource', 'ENV_VARS',
+    function ($resource, ENV_VARS) {
+      return $resource(ENV_VARS.API + '/api/:type/:action', {}, {
         newAlgorithm: {
           method: 'POST',
           params: {

@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Metanome')
-  .factory('Delete', ['$resource', 'EnvironmentConfig',
-    function ($resource, EnvironmentConfig) {
-      return $resource(EnvironmentConfig.API + '/api/:input/delete/:id', {}, {
+  .factory('Delete', ['$resource', 'ENV_VARS',
+    function ($resource, ENV_VARS) {
+      return $resource(ENV_VARS.API + '/api/:input/delete/:id', {}, {
         file: {
           method: 'DELETE',
           params: {
