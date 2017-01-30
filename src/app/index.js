@@ -1,4 +1,9 @@
+
 'use strict';
+angular.module('Metanome.config', []);
+
+require('./scripts/config.js');
+
 
 angular.module('Metanome', [
   'ngAnimate',
