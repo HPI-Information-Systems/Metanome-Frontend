@@ -6,3 +6,5 @@
 /.settings
 npm-modules
 src/app/conf*
+config.json
+src/app/scripts
