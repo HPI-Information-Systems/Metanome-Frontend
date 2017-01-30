@@ -30,7 +30,7 @@ function initializeUCCDiagram(target_id, cluster_nr) {
 
   var data_url = "UCCResultAnalyzer/UCCData.json";
   if (!UrlExists(data_url)) {
-    data_url = "http://localhost:8080/src/visualization/UCCResultAnalyzer/UCCData.json";
+    data_url = "http://localhost:8081/src/visualization/UCCResultAnalyzer/UCCData.json";
   }
 
   d3.json(data_url, function (data) {

@@ -31,7 +31,7 @@
     function draw() {
       var data_url = "FDResultAnalyzer/PrefixTree.json";
       if (!UrlExists(data_url)) {
-        data_url = "http://localhost:8080/src/visualization/FDResultAnalyzer/PrefixTree.json";
+        data_url = "http://localhost:8081/src/visualization/FDResultAnalyzer/PrefixTree.json";
       }
       d3_zoomable_sunburst(data_url,
         $(window).width() - 25,
