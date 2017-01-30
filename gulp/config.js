@@ -22,7 +22,7 @@ module.exports = function (options) {
     gulp.src('./config.json')
       .pipe(gulpNgConfig('Metanome.config', {
       }))
-      .pipe(gulp.dest(options.src + '/app/scripts'))
+      .pipe(gulp.dest(options.dist + '/app/scripts/'))
   });
 
 };
