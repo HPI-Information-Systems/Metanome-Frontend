@@ -1088,7 +1088,7 @@ angular.module('Metanome')
       });
       if (param.numberOfSettings === -1) {
         $scope.datasources[index].name =
-          input + ' (choose an arbitrary number)'
+          input + ' (choose an arbitrary number separated by comma)'
       } else if (param.minNumberOfSettings === param.maxNumberOfSettings) {
         $scope.datasources[index].name =
           input + ' (choose ' + param.minNumberOfSettings + ')'
@@ -1144,6 +1144,39 @@ angular.module('Metanome')
           if (param.defaultValues !== null && param.defaultValues !== undefined) {
             $scope.schema.properties[identifier].default = param.defaultValues[i]
           }
+        }
+      } else if (param.numberOfSettings == -1) {
+        identifier = param.identifier;
+        $scope.schema.properties[identifier] = {
+        'title': identifier + " (choose an arbitrary number separated by comma)",
+        'type': type
+        };
+        if(useForm) {
+          $scope.form.key = identifier;
+          $scope.form.type = "checkboxes";
+          $scope.form.titleMap = [];
+          param.values.forEach(function (v) {
+            $scope.form.titleMap.push({"value": v, "name": v});
+          })
+          $scope.schema.properties[identifier].items = {};
+          $scope.schema.properties[identifier].items.type="string";
+          $scope.schema.properties[identifier].items.enum = [];
+          param.values.forEach(function (v) {
+            $scope.schema.properties[identifier].items.enum.push(v)
+          })
+        }
+        if (useEnum) {
+          $scope.schema.properties[identifier].enum = [];
+          param.values.forEach(function (v) {
+            $scope.schema.properties[identifier].enum.push(v)
+          })
+        }
+
+        if (param.required) {
+          $scope.schema.required.push(identifier)
+        }
+        if (param.defaultValues !== null && param.defaultValues !== undefined) {
+          $scope.schema.properties[identifier].default = param.defaultValues[0]
         }
       } else {
         identifier = param.identifier;
@@ -1292,6 +1325,18 @@ angular.module('Metanome')
                                   'value': settingValue
                                 })
           }
+        }
+      } else if (param.numberOfSettings == 1000){
+        if ($scope.model[param.identifier] !== undefined) {
+          settingValues = $scope.model[param.identifier].split(',');
+          settingValues.forEach(function (settingValue) {
+            if (settingValue !== undefined) {
+              param.settings.push({
+                'type': typeValue,
+                'value': settingValue
+              })
+            }
+          })
         }
       } else {
         settingValue = $scope.model[param.identifier];
@@ -1468,10 +1513,12 @@ angular.module('Metanome')
 
         // check if required number of parameters are set
         var numberOfSettings = params[i].settings.length;
-        if (params[i].required && params[i].numberOfSettings !== -1 &&
+        if ((params[i].required && params[i].numberOfSettings !== -1 &&
             numberOfSettings !== params[i].numberOfSettings &&
             (numberOfSettings < params[i].minNumberOfSettings ||
-             numberOfSettings > params[i].maxNumberOfSettings)
+             numberOfSettings > params[i].maxNumberOfSettings) ||
+             (params[i].required && params[i].numberOfSettings === -1 &&
+             numberOfSettings < 1))
         ) {
           throw new WrongParameterError('Wrong value or number for parameter "' + params[i].identifier + '"!')
         }
