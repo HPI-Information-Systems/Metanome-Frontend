@@ -13,7 +13,8 @@ angular.module('Metanome', [
   'timer',
   'Metanome.config'
 ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $qProvider) {
     $urlRouterProvider.otherwise('/new');
+    $qProvider.errorOnUnhandledRejections(false);
   })
 ;
