@@ -13,7 +13,11 @@ var app = angular.module('Metanome')
           }
         }
       })
-  });
+  })
+
+  .config(['$locationProvider', function($locationProvider) {
+    $locationProvider.hashPrefix('');
+  }]);
 
 app.controller('AboutCtrl', function () {
 });

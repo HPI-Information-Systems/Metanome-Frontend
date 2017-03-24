@@ -13,7 +13,11 @@ var app = angular.module('Metanome')
           }
         }
       })
-  });
+  })
+
+  .config(['$locationProvider', function($locationProvider) {
+    $locationProvider.hashPrefix('');
+  }]);
 
 app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $location, ngDialog, $timeout, Delete, usSpinnerService) {
 
