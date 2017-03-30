@@ -28,7 +28,7 @@
       ng-if="execution.end > 0"> executed in {{duration}}</span>
       <span ng-if="execution.end == 0"> - EXECUTION ABORTED!</span>
       <a ng-if="!extended && !count && execution.end > 0"
-         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}"
+         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}"
          style="margin: -10px 10px -10px 0; float: right;">
         <md-button ng-click="executeAlgorithm(cachingSelection, memory)" class="md-raised md-primary">Load extended
           result
@@ -60,7 +60,7 @@
         </thead>
         <tbody md-body>
         <tr md-row
-          ng-repeat="item in uniqueColumnCombination.data | orderBy: uniqueColumnCombination.query.order | limitTo: uniqueColumnCombination.query.limit: (uniqueColumnCombination.query.page - 1) * uniqueColumnCombination.query.limit">
+            ng-repeat="item in uniqueColumnCombination.data | orderBy: uniqueColumnCombination.query.order | limitTo: uniqueColumnCombination.query.limit: (uniqueColumnCombination.query.page - 1) * uniqueColumnCombination.query.limit">
           <td md-cell>{{item.columnCombination}}</td>
           <td md-cell ng-if="extended">{{item.columnRatio}}</td>
           <td md-cell ng-if="extended">{{item.occurrenceRatio}}</td>
@@ -110,7 +110,7 @@
         </thead>
         <tbody md-body>
         <tr md-row
-          ng-repeat="item in functionalDependency.data | orderBy: functionalDependency.query.order | limitTo: functionalDependency.query.limit: (functionalDependency.query.page - 1) * functionalDependency.query.limit">
+            ng-repeat="item in functionalDependency.data | orderBy: functionalDependency.query.order | limitTo: functionalDependency.query.limit: (functionalDependency.query.page - 1) * functionalDependency.query.limit">
           <td md-cell>{{item.determinant}}</td>
           <td md-cell>{{item.dependant}}</td>
           <td md-cell ng-if="extended">{{item.extendedDependant}}</td>
@@ -158,7 +158,7 @@
         </thead>
         <tbody md-body>
         <tr md-row
-          ng-repeat="item in inclusionDependency.data | orderBy: inclusionDependency.query.order | limitTo: inclusionDependency.query.limit: (inclusionDependency.query.page - 1) * inclusionDependency.query.limit">
+            ng-repeat="item in inclusionDependency.data | orderBy: inclusionDependency.query.order | limitTo: inclusionDependency.query.limit: (inclusionDependency.query.page - 1) * inclusionDependency.query.limit">
           <td md-cell>{{item.dependant}}</td>
           <td md-cell>{{item.referenced}}</td>
           <td md-cell ng-if="extended">{{item.dependantColumnRatio}}</td>
@@ -198,7 +198,7 @@
         </thead>
         <tbody md-body>
         <tr md-row
-          ng-repeat="item in basicStatistic.data | orderBy: basicStatistic.query.order | limitTo: basicStatistic.query.limit: (basicStatistic.query.page - 1) * basicStatistic.query.limit">
+            ng-repeat="item in basicStatistic.data | orderBy: basicStatistic.query.order | limitTo: basicStatistic.query.limit: (basicStatistic.query.page - 1) * basicStatistic.query.limit">
           <td md-cell>{{item.columnCombination}}</td>
           <td md-cell ng-repeat-start="column in basicStatisticColumnNames" ng-repeat-end>{{item[column.order]}}</td>
           <td md-cell ng-if="extended">{{item.columnRatio}}</td>
@@ -235,7 +235,7 @@
         </thead>
         <tbody md-body>
         <tr md-row
-          ng-repeat="item in conditionalUniqueColumnCombination.data | orderBy: conditionalUniqueColumnCombination.query.order | limitTo: conditionalUniqueColumnCombination.query.limit: (conditionalUniqueColumnCombination.query.page - 1) * conditionalUniqueColumnCombination.query.limit">
+            ng-repeat="item in conditionalUniqueColumnCombination.data | orderBy: conditionalUniqueColumnCombination.query.order | limitTo: conditionalUniqueColumnCombination.query.limit: (conditionalUniqueColumnCombination.query.page - 1) * conditionalUniqueColumnCombination.query.limit">
           <td md-cell>{{item.columnCombination}}</td>
           <td md-cell>{{item.condition}}</td>
           <td md-cell>{{item.coverage}}</td>
@@ -278,7 +278,7 @@
         </thead>
         <tbody md-body>
         <tr md-row
-          ng-repeat="item in orderDependency.data | orderBy: orderDependency.query.order | limitTo: orderDependency.query.limit: (orderDependency.query.page - 1) * orderDependency.query.limit">
+            ng-repeat="item in orderDependency.data | orderBy: orderDependency.query.order | limitTo: orderDependency.query.limit: (orderDependency.query.page - 1) * orderDependency.query.limit">
           <td md-cell>{{item.LHS}}</td>
           <td md-cell>{{item.RHS}}</td>
           <td md-cell>{{item.OrderType}}</td>
@@ -301,6 +301,59 @@
                          md-on-paginate="onPageChangeOD"
                          md-options=paginationValues></md-table-pagination>
   </md-card>
+
+  <md-card ng-if="(cached || file)  && multivaluedDependency.count > 0">
+    <md-table-toolbar>
+      <h2 class="md-title">Multivalued Dependency</h2>
+    </md-table-toolbar>
+
+    <md-table-container>
+      <table md-table class="md-primary result-table">
+        <thead md-head md-order="multivaluedDependency.query.order">
+        <tr md-row class="result-header-row">
+          <th md-column md-order-by="determinant" name="Determinant">Determinant</th>
+          <th md-column md-order-by="dependant" name="Dependant">Dependant</th>
+          <th md-column ng-if="extended" md-order-by="determinantColumnRatio" name="Determinant Column Ratio">Determinant Column Ratio</th>
+          <th md-column ng-if="extended" md-order-by="dependantColumnRatio" name="Dependant Column Ratio">Dependant Column Ratio</th>
+          <th md-column ng-if="extended" md-order-by="determinantOccurrenceRatio" name="Determinant Occurrence Ratio">Determinant Occurrence Ratio</th>
+          <th md-column ng-if="extended" md-order-by="dependantOccurrenceRatio" name="Dependant Occurrence Ratio">Dependant Occurrence Ratio</th>
+          <th md-column md-order-by="generalCoverage" name="General Coverage">General Coverage</th>
+          <th md-column ng-if="extended" md-order-by="determinantUniquenessRatio" name="Determinant Uniqueness Ratio">Determinant Uniqueness Ratio</th>
+          <th md-column ng-if="extended" md-order-by="dependantUniquenessRatio" name="Dependant Uniqueness Ratio">Dependant Uniqueness Ratio</th>
+          <th md-column ng-if="extended" md-order-by="pollution" name="Pollution">Pollution</th>
+          <th md-column ng-if="extended" md-order-by="pollutionColumn" name="Pollution Column">Pollution Column</th>
+          <th md-column ng-if="extended" md-order-by="informationGainCell" name="Information Gain Cell">Information Gain Cell</th>
+          <th md-column ng-if="extended" md-order-by="informationGainByte" name="Information Gain Byte">Information Gain Byte</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row
+            ng-repeat="item in multivaluedDependency.data | orderBy: multivaluedDependency.query.order | limitTo: conditionalUniqueColumnCombination.query.limit: (conditionalUniqueColumnCombination.query.page - 1) * conditionalUniqueColumnCombination.query.limit">
+          <td md-cell>{{item.determinant}}</td>
+          <td md-cell>{{item.dependant}}</td>
+          <td md-cell ng-if="extended">{{item.determinantColumnRatio}}</td>
+          <td md-cell ng-if="extended">{{item.dependantColumnRatio}}</td>
+          <td md-cell ng-if="extended">{{item.determinantOccurrenceRatio}}</td>
+          <td md-cell ng-if="extended">{{item.dependantOccurrenceRatio}}</td>
+          <td md-cell>{{item.generalCoverage}}</td>
+          <td md-cell ng-if="extended">{{item.determinantUniquenessRatio}}</td>
+          <td md-cell ng-if="extended">{{item.dependantUniquenessRatio}}</td>
+          <td md-cell ng-if="extended">{{item.pollution}}</td>
+          <td md-cell ng-if="extended">{{item.pollutionColumn}}</td>
+          <td md-cell ng-if="extended">{{item.informationGainCell}}</td>
+          <td md-cell ng-if="extended">{{informationGainByte}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="multivaluedDependency.query.limit"
+                         md-page="multivaluedDependency.query.page"
+                         md-total="{{multivaluedDependency.count}}"
+                         md-on-paginate="onPageChangeMVD"
+                         md-options=paginationValues></md-table-pagination>
+  </md-card>
+
 
   <md-card ng-if="count && uniqueColumnCombination.count > 0">
     <md-card-content>
@@ -326,6 +379,12 @@
       {{orderDependency.count}}
     </md-card-content>
   </md-card>
+  <md-card ng-if="count && multivaluedDependency.count > 0">
+    <md-card-content>
+      <h2 class="md-title">Multivalued Dependency</h2>
+      {{multivaluedDependency.count}}
+    </md-card-content>
+  </md-card>
   <md-card ng-if="count && conditionalUniqueColumnCombination.count > 0">
     <md-card-content>
       <h2 class="md-title">Conditional Unique Column Combination</h2>
@@ -341,7 +400,7 @@
 
   <md-card ng-if="uniqueColumnCombination.count == 0 && orderDependency.count == 0 &&
   conditionalUniqueColumnCombination.count == 0 && basicStatistic.count == 0 && functionalDependency.count == 0 &&
-  inclusionDependency.count == 0 && loading == false">
+  inclusionDependency.count == 0 && multivaluedDependency.count == 0 && loading == false">
     <h3 style="margin: 20px" class="md-title">No results found!</h3>
   </md-card>
 

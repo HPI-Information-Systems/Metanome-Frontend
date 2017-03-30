@@ -13,11 +13,7 @@ var app = angular.module('Metanome')
           }
         }
       })
-  })
-
-  .config(['$locationProvider', function($locationProvider) {
-    $locationProvider.hashPrefix('');
-  }]);
+  });
 
 app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $location, ngDialog, $timeout, Delete, usSpinnerService) {
 
@@ -114,6 +110,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           ucc: execution.algorithm.ucc,
           cucc: execution.algorithm.cucc,
           od: execution.algorithm.od,
+          mvd: execution.algorithm.mvd,
           basicStat: execution.algorithm.basicStat
         })
       });
@@ -133,7 +130,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
         if (!execution.aborted) {
           $location.url('/result/' + execution.id + '?count=' + execution.count + '&cached=' + execution.cached +
           '&load=true' + '&ind=' + execution.ind + '&fd=' + execution.fd + '&ucc=' + execution.ucc +
-          '&cucc=' + execution.cucc + '&od=' + execution.od + '&basicStat=' + execution.basicStat);
+          '&cucc=' + execution.cucc + '&od=' + execution.od + '&mvd' + execution.mvd + '&basicStat=' + execution.basicStat);
         }
       }
 
