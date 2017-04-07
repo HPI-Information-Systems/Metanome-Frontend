@@ -12,7 +12,7 @@ angular.module('Metanome', [
   'md.data.table',
   'timer',
   'Metanome.config',
-  'toastr'
+  'toaster'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $qProvider) {
     $urlRouterProvider.otherwise('/new');

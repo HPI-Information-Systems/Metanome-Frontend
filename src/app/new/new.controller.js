@@ -28,7 +28,8 @@ angular.module('Metanome')
                                    AvailableAlgorithmFiles,
                                    AvailableInputFiles,
                                    Delete,
-                                   toastr
+                                   toaster,
+                                   $animate
   ) {
 
     // ** VARIABLE DEFINITIONS **
@@ -1227,29 +1228,34 @@ angular.module('Metanome')
     // Helper
     // ***
     function notificationInformation() {
-      toastr.success('Execution of algorithm ', 'Algorithm execution started!', {
-        closeButton: true,
-        positionClass: 'toast-top-full-width'
-      });
+      toaster.pop({
+                    type: 'info',
+                    title: 'Execution of algorithm',
+                    body: 'Algorithm execution started!',
+                    showCloseButton: true,
+                    positionClass: 'toast-top-full-width'
+                  });
     }
 
-
-    app.controller('foo', function($scope, toastr) {
-      toastr.info('We are open today from 10 to 22', 'Information');
-    });
     function notificationSuccess(result,url) {
-      toastr.success('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm ' + result.algorithm.name + ' successful!', {
-        allowHtml: true,
-        closeButton: true,
-        positionClass: 'toast-top-full-width'
-      });
+      toaster.pop( {
+                     type: 'success',
+                     bodyOutputType: 'trustedHtml',
+                     title:'<a href=\"' + url + '\">Show Results!</a>',
+                     body: 'Execution of Algorithm ' + result.algorithm.name + ' successful!',
+                     showCloseButton: true,
+                     positionClass: 'toast-top-full-width'
+                   });
     }
 
     function notificationError(errormessage) {
-      toastr.error('During the algorithm execution following error occured: ' + errormessage.data, 'An Error occured!', {
-        closeButton: true,
-        positionClass: 'toast-top-full-width'
-      });
+      toaster.pop({
+                    type: 'error',
+                    title: 'During the algorithm execution following error occured: ' + errormessage.data,
+                    body: 'An Error occured!',
+                    showCloseButton: true,
+                    positionClass: 'toast-top-full-width'
+                  });
     }
 
 
