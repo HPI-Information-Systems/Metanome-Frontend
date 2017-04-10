@@ -101,6 +101,10 @@ section.jumbotron h1 {
   height: 95% !important;
 }
 
+.md-subheader.md-default-theme, .md-subheader {
+  background-color: rgb(255,255,255);
+}
+
 /**
 * MAIN CONTROLLER
 */
@@ -625,7 +629,13 @@ md-content {
 }
 
 md-input-container label {
+  display: block;
+  vertical-align: top;
   position: relative !important;
+}
+
+md-input-container label:not(.md-container-ignore) {
+  bottom: 0 !important;
 }
 
 h4.additional-settings {
