@@ -1241,8 +1241,8 @@ angular.module('Metanome')
       toaster.pop( {
                      type: 'success',
                      bodyOutputType: 'trustedHtml',
-                     title:'<a href=\"' + url + '\">Show Results!</a>',
-                     body: 'Execution of Algorithm ' + result.algorithm.name + ' successful!',
+                     title:'Algorithm execution successful!',
+                     body: 'Execution of Algorithm ' + result.algorithm.name + ' successful! <a href=\"' + url + '\">Show Results!</a>',
                      showCloseButton: true,
                      positionClass: 'toast-top-full-width'
                    });
