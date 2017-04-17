@@ -81,7 +81,7 @@ module.exports = function (options) {
   });
 
   gulp.task('clean', function (done) {
-    $.del([options.dist + '/', options.tmp + '/', options.src + '/app/scripts/*'], done);
+    $.del([options.dist + '/', options.tmp + '/', options.src + '/app/scripts/*','config.json'], done);
   });
 
   gulp.task('build', ['config', 'html', 'fonts', 'other']);

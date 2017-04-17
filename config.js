@@ -3,8 +3,6 @@ var shared = {
   TOKEN: process.env.API_TOKEN
 };
 
-
-
 var environments = {
   development: {
     ENV_VARS: shared
