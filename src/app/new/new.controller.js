@@ -28,7 +28,8 @@ angular.module('Metanome')
                                    AvailableAlgorithmFiles,
                                    AvailableInputFiles,
                                    Delete,
-                                   StopExecution
+                                   toaster,
+                                   $animate
   ) {
 
     // ** VARIABLE DEFINITIONS **
@@ -800,6 +801,8 @@ angular.module('Metanome')
     }
 
 
+
+    //TODO:Rewrite function
     /**
      * Executes an algorithm.
      * Start a timer for the algorithm execution.
@@ -837,8 +840,11 @@ angular.module('Metanome')
       $scope.cancelFunction = function () {
         $scope.canceled = true
       };
+
+      notificationInformation();
+      /*
       ngDialog.openConfirm({
-                             /*jshint multistr: true */
+                             /!*jshint multistr: true *!/
                              template: '\
                 <h3>Execution running</h3>\
                 <timer interval="1000">Elapsed time: {{days}} days, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>\
@@ -859,22 +865,26 @@ angular.module('Metanome')
                                  })
                                }
                              }]
-                           });
+                           });*/
       AlgorithmExecution.run({}, payload, function (result) {
-        var typeStr = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
+        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
                       '&basicStat=' + result.algorithm.basicStat;
-        ngDialog.closeAll();
+
+
         if (!$scope.canceled) {
           if (caching === 'cache' || caching === 'disk') {
-            $location.url('/result/' + result.id + '?cached=true' + typeStr);
+            url = '#/result/' + result.id + '?cached=true' + url;
+
           } else {
-            $location.url('/result/' + result.id + '?count=true' + typeStr);
+             url = '#/result/' + result.id + '?count=true' + url;
           }
+          notificationSuccess(result,url);
         }
+
+
       }, function (errorMessage) {
-        ngDialog.closeAll();
-        openError('The algorithm execution was not successful: ' + errorMessage.data);
+            notificationError(errorMessage);
       })
     }
 
@@ -1217,6 +1227,38 @@ angular.module('Metanome')
     // ***
     // Helper
     // ***
+    function notificationInformation() {
+      toaster.pop({
+                    type: 'info',
+                    title: 'Execution of algorithm',
+                    body: 'Algorithm execution started!',
+                    showCloseButton: true,
+                    positionClass: 'toast-top-full-width'
+                  });
+    }
+
+    function notificationSuccess(result,url) {
+      toaster.pop( {
+                     type: 'success',
+                     bodyOutputType: 'trustedHtml',
+                     title:'Algorithm execution successful!',
+                     body: 'Execution of Algorithm ' + result.algorithm.name + ' successful! <a href=\"' + url + '\">Show Results!</a>',
+                     showCloseButton: true,
+                     positionClass: 'toast-top-full-width'
+                   });
+    }
+
+    function notificationError(errormessage) {
+      toaster.pop({
+                    type: 'error',
+                    title: 'During the algorithm execution following error occured: ' + errormessage.data,
+                    body: 'An Error occured!',
+                    showCloseButton: true,
+                    positionClass: 'toast-top-full-width'
+                  });
+    }
+
+
 
     /**
      * Stars the spinner
@@ -1624,7 +1666,6 @@ angular.module('Metanome')
     $scope.InputStore = InputStore;
     $scope.AvailableAlgorithmFiles = AvailableAlgorithmFiles;
     $scope.AvailableInputFiles = AvailableInputFiles;
-    $scope.StopExecution = StopExecution;
     $scope.doneEditingDatasources = doneEditingDatasources;
 
 
