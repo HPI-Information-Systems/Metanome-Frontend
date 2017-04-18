@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('Metanome')
-  .factory('AvailableInputFiles', ['$resource', 'EnvironmentConfig',
-    function ($resource, EnvironmentConfig) {
-      return $resource(EnvironmentConfig.API + '/api/file-inputs/:operation', {}, {
+  .factory('AvailableInputFiles', ['$resource', 'ENV_VARS',
+    function ($resource, ENV_VARS) {
+      return $resource(ENV_VARS.API + '/api/file-inputs/:operation', {}, {
         get: {
           method: 'GET',
           params: {

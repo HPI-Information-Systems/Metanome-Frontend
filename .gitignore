@@ -1,6 +1,12 @@
+.env
 .tmp/
 .idea/
 /target
 .classpath
 .project
 /.settings
+node_modules
+metanome
+src/app/scripts
+bower_components
+config.json

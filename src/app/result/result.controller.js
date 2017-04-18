@@ -17,7 +17,7 @@ var app = angular.module('Metanome')
 
 app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, usSpinnerService,
                                        $timeout, $stateParams, LoadResults, CountResults, Execution, File,
-                                       ngDialog, $http, EnvironmentConfig) {
+                                       ngDialog, $http, ENV_VARS) {
 
   // ** VARIABLE DEFINITIONS **
   // **************************
@@ -445,7 +445,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
    */
   function init() {
     if ($scope.ucc || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.uniqueColumnCombination.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.uniqueColumnCombination.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
@@ -457,7 +457,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         });
     }
     if ($scope.fd || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.functionalDependency.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.functionalDependency.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
@@ -469,7 +469,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         });
     }
     if ($scope.basicStat || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.basicStatistic.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.basicStatistic.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
@@ -481,7 +481,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         });
     }
     if ($scope.ind || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.inclusionDependency.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.inclusionDependency.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
@@ -493,7 +493,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         });
     }
     if ($scope.cucc || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.conditionalUniqueColumnCombination.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.conditionalUniqueColumnCombination.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
@@ -505,7 +505,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         });
     }
     if ($scope.od || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.orderDependency.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.orderDependency.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
@@ -517,7 +517,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         })
     }
     if ($scope.mvd || $scope.file) {
-      $http.get(EnvironmentConfig.API + '/api/result-store/count/' + $scope.multivaluedDependency.params.type).
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.multivaluedDependency.params.type).
         then(function (response) {
           var count = response.data;
           if (count > 0) {
