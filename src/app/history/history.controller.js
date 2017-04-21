@@ -112,7 +112,8 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           od: execution.algorithm.od,
           mvd: execution.algorithm.mvd,
           basicStat: execution.algorithm.basicStat,
-          running: execution.running
+          running: execution.running,
+          identifier: execution.identifier
         })
       });
 
@@ -196,7 +197,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
     $scope.confirmFunction = function () {
       $scope.startSpin();
 
-      StopExecution.stop({identifier: $scope.confirmItem.identifier}, function () {
+      StopExecution.stop({identifier: $scope.confirmItem.identifier }, function () {
         $scope.cancelFunction();
         $scope.loadExecutions()
       });
