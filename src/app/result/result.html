@@ -28,7 +28,7 @@
       ng-if="execution.end > 0"> executed in {{duration}}</span>
       <span ng-if="execution.end == 0"> - EXECUTION ABORTED!</span>
       <a ng-if="!extended && !count && execution.end > 0"
-         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}"
+         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}&dc={{dc}}"
          style="margin: -10px 10px -10px 0; float: right;">
         <md-button ng-click="executeAlgorithm(cachingSelection, memory)" class="md-raised md-primary">Load extended
           result
@@ -216,6 +216,36 @@
                          md-options=paginationValues></md-table-pagination>
   </md-card>
 
+  <md-card ng-if="(cached || file)  && denialConstraint.count > 0">
+    <md-table-toolbar>
+      <h2 class="md-title">Denial Constraint</h2>
+    </md-table-toolbar>
+
+    <md-table-container>
+      <table md-table class="md-primary result-table">
+        <thead md-head md-order="denialConstraint.query.order">
+        <tr md-row class="result-header-row">
+          <th md-column md-order-by="predicates" name="Predicates">Predicates</th>
+          <th md-column md-order-by="size" name="Size">Size</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row
+            ng-repeat="item in denialConstraint.data | orderBy: denialConstraint.query.order | limitTo: denialConstraint.query.limit: (denialConstraint.query.page - 1) * denialConstraint.query.limit">
+          <td md-cell>{{item.predicates}}</td>
+          <td md-cell>{{item.size}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="denialConstraint.query.limit"
+                         md-page="denialConstraint.query.page"
+                         md-total="{{denialConstraint.count}}"
+                         md-on-paginate="onPageChangeDC"
+                         md-options=paginationValues></md-table-pagination>
+  </md-card>
+
   <md-card ng-if="(cached || file)  && conditionalUniqueColumnCombination.count > 0">
     <md-table-toolbar>
       <h2 class="md-title">Conditional Unique Column Combination</h2>
@@ -397,10 +427,16 @@
       {{basicStatistic.count}}
     </md-card-content>
   </md-card>
+  <md-card ng-if="count && denialConstraint.count > 0">
+    <md-card-content>
+      <h2 class="md-title">Denial Constraint</h2>
+      {{denialConstraint.count}}
+    </md-card-content>
+  </md-card>
 
   <md-card ng-if="uniqueColumnCombination.count == 0 && orderDependency.count == 0 &&
   conditionalUniqueColumnCombination.count == 0 && basicStatistic.count == 0 && functionalDependency.count == 0 &&
-  inclusionDependency.count == 0 && multivaluedDependency.count == 0 && loading == false">
+  inclusionDependency.count == 0 && multivaluedDependency.count == 0 && denialConstraint.count == 0 && loading == false">
     <h3 style="margin: 20px" class="md-title">No results found!</h3>
   </md-card>
 

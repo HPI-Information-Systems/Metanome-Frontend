@@ -5,7 +5,7 @@ var app = angular.module('Metanome')
   .config(function config($stateProvider) {
     $stateProvider
       .state('result', {
-        url: '/result/:resultId?cached&count&load&file&extended&ind&od&ucc&cucc&fd&mvd&basicStat',
+        url: '/result/:resultId?cached&count&load&file&extended&ind&od&ucc&cucc&fd&mvd&basicStat&dc',
         views: {
           'main@': {
             controller: 'ResultCtrl',
@@ -34,6 +34,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.od = ($stateParams.od === 'true');
   $scope.mvd = ($stateParams.mvd === 'true');
   $scope.basicStat = ($stateParams.basicStat === 'true');
+  $scope.dc = ($stateParams.dc === 'true');
   $scope.load = ($stateParams.load === 'true');
 
   $scope.basicStatisticColumnNames = [];
@@ -88,6 +89,23 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
     params: {
       type: 'Basic Statistic',
       sort: 'Column Combination',
+      from: 0,
+      to: defaultCacheSize
+    }
+  };
+
+  $scope.denialConstraint = {
+    count: 0,
+    data: [],
+    query: {
+      order: '',
+      limit: 10,
+      page: 1
+    },
+    selected: [],
+    params: {
+      type: 'Denial Constraint',
+      sort: 'Predicates',
       from: 0,
       to: defaultCacheSize
     }
@@ -331,6 +349,54 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
     })
   }
 
+  var predicateOperators = {
+    "EQUAL":"=",
+    "UNEQUAL":"≠",
+    "GREATER":">",
+    "LESS":"<",
+    "GREATER_EQUAL":"≥",
+    "LESS_EQUAL":"≤",
+  }
+
+  /**
+   * Loads the result for basic statistics from the backend.
+   */
+  function loadDenialConstraint() {
+    Results.get($scope.denialConstraint.params, function (res) {
+      var rows = [];
+      res.forEach(function (result) {
+        var combinations = [];
+        var tableNames = [];
+        result.result.predicates.forEach(function (predicate) {
+          var operator = predicateOperators[predicate.op] || predicate.op;
+          if(predicate.type === "de.metanome.algorithm_integration.PredicateConstant") {
+            tableNames[predicate.index1] = predicate.column1.tableIdentifier;
+            combinations.push('t' + predicate.index1 + '.' + predicate.column1.columnIdentifier +
+             operator + predicate.constant);
+          } else if (predicate.type === "de.metanome.algorithm_integration.PredicateVariable") {
+            tableNames[predicate.index1] = predicate.column1.tableIdentifier;
+            tableNames[predicate.index2] = predicate.column2.tableIdentifier;
+            combinations.push('t' + predicate.index1 + '.' + predicate.column1.columnIdentifier +
+             operator + 't' + predicate.index2 + '.' + predicate.column2.columnIdentifier);
+          }
+        });
+        var tuples = [];
+        for (var index in tableNames) {
+          if (tableNames.hasOwnProperty(index)) {
+            tuples.push('t' + index + '∈' + tableNames[index]);
+          }
+        }
+
+        var entry = {
+          predicates: '∀' + tuples.join(',') + ':\n¬[' + combinations.join('∧\n ') + ']',
+          size: combinations.length,
+        };
+        rows.push(entry);
+      });
+      $scope.denialConstraint.data = $scope.denialConstraint.data.concat(rows)
+    })
+  }
+
   /**
    * Loads the result for inclusion dependencies from the backend.
    */
@@ -476,6 +542,18 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
             $scope.basicStatistic.count = count;
             if (!$scope.count) {
               loadBasicStatistic()
+            }
+          }
+        });
+    }
+    if ($scope.dc || $scope.file) {
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.denialConstraint.params.type).
+        then(function (response) {
+          var count = response.data;
+          if (count > 0) {
+            $scope.denialConstraint.count = count;
+            if (!$scope.count) {
+              loadDenialConstraint()
             }
           }
         });
@@ -661,6 +739,27 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   }
 
   /**
+   * Updates the result for denial constraints according to the selected limit and page.
+   * @param page the current page
+   * @param limit the current limit
+   * @returns {*}
+   */
+  function onPageChangeDC(page, limit) {
+    var deferred = $q.defer();
+    if ($scope.denialConstraint.params.to < $scope.denialConstraint.count) {
+      $scope.denialConstraint.params.from += $scope.denialConstraint.params.to + 1;
+      $scope.denialConstraint.params.to += Math.max(limit, $scope.denialConstraint.count);
+      loadDenialConstraint();
+      $timeout(function () {
+        deferred.resolve();
+      }, 500);
+    } else {
+      deferred.resolve()
+    }
+    return deferred.promise;
+  }
+
+  /**
    * Updates the result for inclusion dependencies according to the selected limit and page.
    * @param page the current page
    * @param limit the current limit
@@ -794,6 +893,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.onPageChangeCUCC = onPageChangeCUCC;
   $scope.onPageChangeOD = onPageChangeOD;
   $scope.onPageChangeMVD = onPageChangeMVD;
+  $scope.onPageChangeDC = onPageChangeDC;
 
   // ** FUNCTION CALLS **
   // ********************
