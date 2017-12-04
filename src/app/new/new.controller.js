@@ -89,6 +89,10 @@ angular.module('Metanome')
           display: 'Functional Dependency Algorithms'
         },
         {
+          name: 'matching-dependency-algorithms',
+          display: 'Matching Dependency Algorithms'
+        },
+        {
           name: 'unique-column-combination-algorithms',
           display: 'Unique Column Combination Algorithms'
         },
@@ -284,6 +288,7 @@ angular.module('Metanome')
                             'description': algorithm.description,
                             'ind': algorithm.ind,
                             'fd': algorithm.fd,
+                            'md': algorithm.md,
                             'ucc': algorithm.ucc,
                             'cucc': algorithm.cucc,
                             'od': algorithm.od,
@@ -867,7 +872,7 @@ angular.module('Metanome')
                              }]
                            });*/
       AlgorithmExecution.run({}, payload, function (result) {
-        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
+        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&md=' + result.algorithm.md + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
                       '&basicStat=' + result.algorithm.basicStat;
 

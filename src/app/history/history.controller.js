@@ -106,6 +106,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           count: execution.countResult,
           cached: !execution.countResult,
           fd: execution.algorithm.fd,
+          md: execution.algorithm.md,
           ind: execution.algorithm.ind,
           ucc: execution.algorithm.ucc,
           cucc: execution.algorithm.cucc,
@@ -131,7 +132,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
   function showResult(execution) {
         if (!execution.aborted) {
           $location.url('/result/' + execution.id + '?count=' + execution.count + '&cached=' + execution.cached +
-          '&load=true' + '&ind=' + execution.ind + '&fd=' + execution.fd + '&ucc=' + execution.ucc +
+          '&load=true' + '&ind=' + execution.ind + '&fd=' + execution.fd + '&md=' + execution.md + '&ucc=' + execution.ucc +
           '&cucc=' + execution.cucc + '&od=' + execution.od + '&mvd' + execution.mvd + '&basicStat=' + execution.basicStat);
         }
       }

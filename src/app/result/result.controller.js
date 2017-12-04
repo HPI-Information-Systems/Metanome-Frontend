@@ -5,7 +5,7 @@ var app = angular.module('Metanome')
   .config(function config($stateProvider) {
     $stateProvider
       .state('result', {
-        url: '/result/:resultId?cached&count&load&file&extended&ind&od&ucc&cucc&fd&mvd&basicStat',
+        url: '/result/:resultId?cached&count&load&file&extended&ind&od&ucc&cucc&fd&md&mvd&basicStat',
         views: {
           'main@': {
             controller: 'ResultCtrl',
@@ -28,6 +28,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.file = ($stateParams.file === 'true');
   $scope.count = ($stateParams.count === 'true');
   $scope.fd = ($stateParams.fd === 'true');
+  $scope.md = ($stateParams.md === 'true');
   $scope.ind = ($stateParams.ind === 'true');
   $scope.ucc = ($stateParams.ucc === 'true');
   $scope.cucc = ($stateParams.cucc === 'true');
@@ -70,6 +71,23 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
     selected: [],
     params: {
       type: 'Functional Dependency',
+      sort: 'Determinant',
+      from: 0,
+      to: defaultCacheSize
+    }
+  };
+
+  $scope.matchingDependency = {
+    count: 0,
+    data: [],
+    query: {
+      order: '',
+      limit: 10,
+      page: 1
+    },
+    selected: [],
+    params: {
+      type: 'Matching Dependency',
       sort: 'Determinant',
       from: 0,
       to: defaultCacheSize
@@ -239,6 +257,57 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
    */
   function loadFunctionalDependency() {
     Results.get($scope.functionalDependency.params, function (res) {
+      var rows = [];
+      res.forEach(function (result) {
+        var determinant = [];
+        result.result.determinant.columnIdentifiers.forEach(function (combination) {
+          if (combination.tableIdentifier && combination.columnIdentifier) {
+            determinant.push(combination.tableIdentifier + '.' + combination.columnIdentifier);
+          } else {
+            determinant.push('');
+          }
+        });
+        var extendedDependant = [];
+        if (result.extendedDependant) {
+          result.extendedDependant.columnIdentifiers.forEach(function (combination) {
+            if (combination.tableIdentifier && combination.columnIdentifier) {
+              extendedDependant.push(combination.tableIdentifier + '.' + combination.columnIdentifier)
+            } else {
+              determinant.push('');
+            }
+          })
+        }
+        var dependant = '';
+        if (result.dependant.tableIdentifier && result.dependant.columnIdentifier) {
+          dependant = result.dependant.tableIdentifier + '.' + result.dependant.columnIdentifier;
+        }
+
+        rows.push({
+          determinant: '[' + determinant.join(',\n ') + ']',
+          dependant: dependant,
+          extendedDependant: '[' + extendedDependant.join(',\n ') + ']',
+          determinantColumnRatio: result.determinantColumnRatio,
+          dependantColumnRatio: result.dependantColumnRatio,
+          determinantOccurrenceRatio: result.determinantOccurrenceRatio,
+          dependantOccurrenceRatio: result.dependantOccurrenceRatio,
+          generalCoverage: result.generalCoverage,
+          determinantUniquenessRatio: result.determinantUniquenessRatio,
+          dependantUniquenessRatio: result.dependantUniquenessRatio,
+          pollution: result.pollution,
+          pollutionColumn: result.pollutionColumn,
+          informationGainCell: result.informationGainCells,
+          informationGainByte: result.informationGainBytes
+        })
+      });
+      $scope.functionalDependency.data = $scope.functionalDependency.data.concat(rows)
+    })
+  }
+
+  /**
+   * Loads the result for matching dependencies from the backend.
+   */
+  function loadMatchingDependency() {
+    Results.get($scope.matchingDependency.params, function (res) {
       var rows = [];
       res.forEach(function (result) {
         var determinant = [];
@@ -468,6 +537,18 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
           }
         });
     }
+    if ($scope.md || $scope.file) {
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.matchingDependency.params.type).
+        then(function (response) {
+          var count = response.data;
+          if (count > 0) {
+            $scope.matchingDependency.count = count;
+            if (!$scope.count) {
+              loadMatchingDependency()
+            }
+          }
+        });
+    }
     if ($scope.basicStat || $scope.file) {
       $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.basicStatistic.params.type).
         then(function (response) {
@@ -609,6 +690,26 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
       $scope.functionalDependency.params.from += $scope.functionalDependency.params.to + 1;
       $scope.functionalDependency.params.to += Math.max(limit, $scope.functionalDependency.count);
       loadFunctionalDependency();
+      $timeout(function () {
+        deferred.resolve();
+      }, 500);
+    } else {
+      deferred.resolve()
+    }
+    return deferred.promise;
+  }
+  /**
+   * Updates the result for matching dependency according to the selected limit and page.
+   * @param page the current page
+   * @param limit the current limit
+   * @returns {*}
+   */
+  function onPageChangeMD(page, limit) {
+    var deferred = $q.defer();
+    if ($scope.matchingDependency.params.to < $scope.matchingDependency.count) {
+      $scope.matchingDependency.params.from += $scope.matchingDependency.params.to + 1;
+      $scope.matchingDependency.params.to += Math.max(limit, $scope.matchingDependency.count);
+      loadMatchingDependency();
       $timeout(function () {
         deferred.resolve();
       }, 500);
@@ -790,6 +891,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.onPageChangeBS = onPageChangeBS;
   $scope.onPageChangeUCC = onPageChangeUCC;
   $scope.onPageChangeFD = onPageChangeFD;
+  $scope.onPageChangeMD = onPageChangeMD;
   $scope.onPageChangeIND = onPageChangeIND;
   $scope.onPageChangeCUCC = onPageChangeCUCC;
   $scope.onPageChangeOD = onPageChangeOD;

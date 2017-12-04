@@ -28,7 +28,7 @@
       ng-if="execution.end > 0"> executed in {{duration}}</span>
       <span ng-if="execution.end == 0"> - EXECUTION ABORTED!</span>
       <a ng-if="!extended && !count && execution.end > 0"
-         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}"
+         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&md={{md}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}"
          style="margin: -10px 10px -10px 0; float: right;">
         <md-button ng-click="executeAlgorithm(cachingSelection, memory)" class="md-raised md-primary">Load extended
           result
@@ -134,6 +134,60 @@
                          md-page="functionalDependency.query.page"
                          md-total="{{functionalDependency.count}}"
                          md-on-paginate="onPageChangeFD"
+                         md-options=paginationValues></md-table-pagination>
+  </md-card>
+
+  <md-card ng-if="(cached || file)  && matchingDependency.count > 0">
+    <md-table-toolbar>
+      <h2 class="md-title">Matching Dependency</h2>
+    </md-table-toolbar>
+
+    <md-table-container>
+      <table md-table class="md-primary result-table">
+        <thead md-head md-order="matchingDependency.query.order">
+        <tr md-row class="result-header-row">
+          <th md-column md-order-by="determinant" name="Determinant">Determinant</th>
+          <th md-column md-order-by="dependant" name="Dependant">Dependant</th>
+          <th md-column ng-if="extended" md-order-by="extendedDependant" name="Extended Dependant">Extended Dependant</th>
+          <th md-column ng-if="extended" numeric md-order-by="determinantColumnRatio" name="Determinant Column Ratio">Determinant Column Ratio</th>
+          <th md-column ng-if="extended" numeric md-order-by="dependantColumnRatio" name="Dependant Column Ratio">Dependant Column Ratio</th>
+          <th md-column ng-if="extended" numeric md-order-by="determinantOccurrenceRatio" name="Determinant Occurrence Ratio">Determinant Occurrence Ratio</th>
+          <th md-column ng-if="extended" numeric md-order-by="dependantOccurrenceRatio" name="Dependant Occurrence Ratio">Dependant Occurrence Ratio</th>
+          <th md-column ng-if="extended" numeric md-order-by="generalCoverage" name="General Coverage">General Coverage</th>
+          <th md-column ng-if="extended" numeric md-order-by="determinantUniquenessRatio" name="Determinant Uniqueness Ratio">Determinant Uniqueness Ratio</th>
+          <th md-column ng-if="extended" numeric md-order-by="dependantUniquenessRatio" name="Dependant Uniqueness Ratio">Dependant Uniqueness Ratio</th>
+          <th md-column ng-if="extended" numeric md-order-by="informationGainCell" name="Information Gain Cell">Information Gain Cell</th>
+          <th md-column ng-if="extended" numeric md-order-by="informationGainByte" name="Information Gain Byte">Information Gain Byte</th>
+          <th md-column ng-if="extended" numeric md-order-by="pollution" name="Pollution">Pollution</th>
+          <th md-column ng-if="extended" md-order-by="pollutionColumn" name="Pollution Column">Pollution Column</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row
+            ng-repeat="item in matchingDependency.data | orderBy: matchingDependency.query.order | limitTo: matchingDependency.query.limit: (matchingDependency.query.page - 1) * matchingDependency.query.limit">
+          <td md-cell>{{item.determinant}}</td>
+          <td md-cell>{{item.dependant}}</td>
+          <td md-cell ng-if="extended">{{item.extendedDependant}}</td>
+          <td md-cell ng-if="extended">{{item.determinantColumnRatio}}</td>
+          <td md-cell ng-if="extended">{{item.dependantColumnRatio}}</td>
+          <td md-cell ng-if="extended">{{item.determinantOccurrenceRatio}}</td>
+          <td md-cell ng-if="extended">{{item.dependantOccurrenceRatio}}</td>
+          <td md-cell ng-if="extended">{{item.generalCoverage}}</td>
+          <td md-cell ng-if="extended">{{item.determinantUniquenessRatio}}</td>
+          <td md-cell ng-if="extended">{{item.dependantUniquenessRatio}}</td>
+          <td md-cell ng-if="extended">{{item.informationGainCell}}</td>
+          <td md-cell ng-if="extended">{{item.informationGainByte}}</td>
+          <td md-cell ng-if="extended">{{item.pollution}}</td>
+          <td md-cell ng-if="extended">{{item.pollutionColumn}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="matchingDependency.query.limit"
+                         md-page="matchingDependency.query.page"
+                         md-total="{{matchingDependency.count}}"
+                         md-on-paginate="onPageChangeMD"
                          md-options=paginationValues></md-table-pagination>
   </md-card>
 
@@ -367,6 +421,12 @@
       {{functionalDependency.count}}
     </md-card-content>
   </md-card>
+  <md-card ng-if="count && matchingDependency.count > 0">
+    <md-card-content>
+      <h2 class="md-title">Matching Dependency</h2>
+      {{matchingDependency.count}}
+    </md-card-content>
+  </md-card>
   <md-card ng-if="count && inclusionDependency.count > 0">
     <md-card-content>
       <h2 class="md-title">Inclusion Dependency</h2>
@@ -399,7 +459,7 @@
   </md-card>
 
   <md-card ng-if="uniqueColumnCombination.count == 0 && orderDependency.count == 0 &&
-  conditionalUniqueColumnCombination.count == 0 && basicStatistic.count == 0 && functionalDependency.count == 0 &&
+  conditionalUniqueColumnCombination.count == 0 && basicStatistic.count == 0 && functionalDependency.count == 0 && matchingDependency.count == 0 &&
   inclusionDependency.count == 0 && multivaluedDependency.count == 0 && loading == false">
     <h3 style="margin: 20px" class="md-title">No results found!</h3>
   </md-card>
