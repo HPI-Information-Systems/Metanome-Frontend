@@ -329,46 +329,53 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
       var rows = [];
       res.forEach(function (result) {
         var determinant = [];
-        result.result.determinant.columnIdentifiers.forEach(function (combination) {
-          if (combination.tableIdentifier && combination.columnIdentifier) {
-            determinant.push(combination.tableIdentifier + '.' + combination.columnIdentifier);
+        result.result.determinant.matchingIdentifiers.forEach(function (combination) {
+          var leftIdentifier = '';
+          if(combination.left) {
+            leftIdentifier = combination.left.tableIdentifier + '.' + combination.left.columnIdentifier;
+          }
+          var rightIdentifier = '';
+          if(combination.right) {
+            rightIdentifier = combination.right.tableIdentifier + '.' + combination.right.columnIdentifier;
+          }
+          var identifier;
+          if(leftIdentifier === rightIdentifier) {
+            identifier = leftIdentifier;
+          } else {
+            identifier = leftIdentifier + ',' + rightIdentifier;
+          }
+          if (combination.similarityMeasure && combination.threshold) {
+            determinant.push(identifier + '(' + combination.similarityMeasure + '@' + combination.threshold + ')');
           } else {
             determinant.push('');
           }
         });
-        var extendedDependant = [];
-        if (result.extendedDependant) {
-          result.extendedDependant.columnIdentifiers.forEach(function (combination) {
-            if (combination.tableIdentifier && combination.columnIdentifier) {
-              extendedDependant.push(combination.tableIdentifier + '.' + combination.columnIdentifier)
-            } else {
-              determinant.push('');
-            }
-          })
-        }
         var dependant = '';
-        if (result.dependant.tableIdentifier && result.dependant.columnIdentifier) {
-          dependant = result.dependant.tableIdentifier + '.' + result.dependant.columnIdentifier;
+        if (result.result.dependant.similarityMeasure && result.result.dependant.threshold) {
+          var leftIdentifier = '';
+          if(result.result.dependant.left) {
+            leftIdentifier = result.result.dependant.left.tableIdentifier + '.' + result.result.dependant.left.columnIdentifier;
+          }
+          var rightIdentifier = '';
+          if(result.result.dependant.right) {
+            rightIdentifier = result.result.dependant.right.tableIdentifier + '.' + result.result.dependant.right.columnIdentifier;
+          }
+          var identifier;
+          if(leftIdentifier === rightIdentifier) {
+            identifier = leftIdentifier;
+          } else {
+            identifier = leftIdentifier + ',' + rightIdentifier;
+          }
+          dependant = identifier + '(' + result.result.dependant.similarityMeasure + '@' + result.result.dependant.threshold + ')';
         }
 
         rows.push({
           determinant: '[' + determinant.join(',\n ') + ']',
           dependant: dependant,
-          extendedDependant: '[' + extendedDependant.join(',\n ') + ']',
-          determinantColumnRatio: result.determinantColumnRatio,
-          dependantColumnRatio: result.dependantColumnRatio,
-          determinantOccurrenceRatio: result.determinantOccurrenceRatio,
-          dependantOccurrenceRatio: result.dependantOccurrenceRatio,
-          generalCoverage: result.generalCoverage,
-          determinantUniquenessRatio: result.determinantUniquenessRatio,
-          dependantUniquenessRatio: result.dependantUniquenessRatio,
-          pollution: result.pollution,
-          pollutionColumn: result.pollutionColumn,
-          informationGainCell: result.informationGainCells,
-          informationGainByte: result.informationGainBytes
+          support: result.result.support
         })
       });
-      $scope.functionalDependency.data = $scope.functionalDependency.data.concat(rows)
+      $scope.matchingDependency.data = $scope.matchingDependency.data.concat(rows)
     })
   }
 
