@@ -111,6 +111,10 @@ angular.module('Metanome')
         {
           name: 'basic-statistics-algorithms',
           display: 'Basic Statistics Algorithms'
+        },
+        {
+          name: 'denial-constraint-algorithms',
+          display: 'Denial Constraint Algorithms'
         }
       ];
 
@@ -294,6 +298,7 @@ angular.module('Metanome')
                             'od': algorithm.od,
                             'mvd': algorithm.mvd,
                             'basicStat': algorithm.basicStat,
+                            'dc': algorithm.dc,
                             'relationalInput': algorithm.relationalInput,
                             'databaseConnection': algorithm.databaseConnection,
                             'tableInput': algorithm.tableInput,
@@ -874,7 +879,7 @@ angular.module('Metanome')
       AlgorithmExecution.run({}, payload, function (result) {
         var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&md=' + result.algorithm.md + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
-                      '&basicStat=' + result.algorithm.basicStat;
+                      '&basicStat=' + result.algorithm.basicStat + '&dc=' + result.algorithm.dc;
 
 
         if (!$scope.canceled) {
