@@ -173,8 +173,8 @@ angular.module('Metanome')
           result.forEach(function (element) {
             //Remove path from element name
             if (category.name === 'file-inputs') {
-              if (element.name.lastIndexOf("inputData") != -1) {
-                element.name = element.name.substr(element.name.lastIndexOf("inputData") + 10, element.name.length - 1);
+              if (element.name.lastIndexOf('inputData') !== -1) {
+                element.name = element.name.substr(element.name.lastIndexOf('inputData') + 10, element.name.length - 1);
               }
             }
             if (category.name === 'database-connections') {
@@ -216,7 +216,7 @@ angular.module('Metanome')
     }
 
     function getFileSeparator() {
-      if (navigator.platform.indexOf("Win") != -1) {
+      if (navigator.platform.indexOf('Win') !== -1) {
         fileSep = '\\';
       } else {
         fileSep = '/';
@@ -375,8 +375,8 @@ angular.module('Metanome')
 
                         if ($scope.$parent.editFileInput) {
                           $scope.file = $scope.$parent.editFileInput;
-                          if ($scope.file.fileName.lastIndexOf("inputData") != -1) {
-                            $scope.defaultFileText = $scope.file.fileName.substr($scope.file.fileName.lastIndexOf("inputData") + 10, $scope.file.fileName.length - 1);
+                          if ($scope.file.fileName.lastIndexOf('inputData') !== -1) {
+                            $scope.defaultFileText = $scope.file.fileName.substr($scope.file.fileName.lastIndexOf('inputData') + 10, $scope.file.fileName.length - 1);
                           } else {
                             $scope.defaultFileText = $scope.file.fileName;
                           }
@@ -429,7 +429,7 @@ angular.module('Metanome')
 
                           inputFiles.forEach( function(file) {
                             // add paths with no file ending to list
-                            if (file.indexOf(".") == -1) {
+                            if (file.indexOf('.') === -1) {
                               directoryPaths.push(file);
                             } else {
                               fileList.push(file);
@@ -438,7 +438,7 @@ angular.module('Metanome')
 
                           fileList.forEach( function(file) {
                             var subDir = file.substr(0, file.lastIndexOf(fileSep));
-                            if (directoryPaths.indexOf(subDir) != -1) {
+                            if (directoryPaths.indexOf(subDir) !== -1) {
                               directoryPaths.splice(directoryPaths.indexOf(subDir), 1);
                             }
                           });
@@ -449,12 +449,12 @@ angular.module('Metanome')
                         // Loads the available files on disk
                         function loadAvailableFiles() {
                           $scope.AvailableInputFiles.get(function (result) {
-                            var updatedResult = result.map(function(f) {if (f.lastIndexOf("inputData") != - 1) {return f.substr(f.lastIndexOf("inputData") + 10, f.length - 1)} else {return f}});
+                            var updatedResult = result.map(function(f) {if (f.lastIndexOf('inputData') !== - 1) {return f.substr(f.lastIndexOf('inputData') + 10, f.length - 1)} else {return f}});
                             $scope.$parent.datasources.forEach(function (category) {
                               if (category.name === 'File Input') {
                                 category.datasource.forEach(function (file) {
-                                  if (file.fileName.lastIndexOf("inputData") != -1) {
-                                    var index = updatedResult.indexOf(file.fileName.substr(file.fileName.lastIndexOf("inputData") + 10, file.fileName.length - 1));
+                                  if (file.fileName.lastIndexOf('inputData') !== -1) {
+                                    var index = updatedResult.indexOf(file.fileName.substr(file.fileName.lastIndexOf('inputData') + 10, file.fileName.length - 1));
                                   } else {
                                     var index = updatedResult.indexOf(file.fileName);
                                   }
