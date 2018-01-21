@@ -478,13 +478,13 @@ angular.module('Metanome')
                             result.forEach(function (file) {
                               $scope.files.push({
                                                   fileName: file,
-                                                  shortFileName: file.substr(file.lastIndexOf("inputData") + 10, file.length - 1)
+                                                  shortFileName: file.substr(file.lastIndexOf('inputData') + 10, file.length - 1)
                                                 })
                             });
                             if ($scope.$parent.editFileInput) {
                               $scope.files.push({
                                                   fileName: $scope.file.fileName,
-                                                  shortFileName: $scope.file.fileName.substr($scope.file.fileName.lastIndexOf("inputData") + 10, $scope.file.fileName.length - 1)
+                                                  shortFileName: $scope.file.fileName.substr($scope.file.fileName.lastIndexOf('inputData') + 10, $scope.file.fileName.length - 1)
                                                 });
                             }
                             $scope.files.sort(function (a, b) {
@@ -1140,13 +1140,13 @@ angular.module('Metanome')
 
           if(useForm) {
             $scope.form.key = identifier;
-            $scope.form.type = "checkboxes";
+            $scope.form.type = 'checkboxes';
             $scope.form.titleMap = [];
             param.values.forEach(function (v) {
-              $scope.form.titleMap.push({"value": v, "name": v});
+              $scope.form.titleMap.push({'value': v, 'name': v});
             })
             $scope.schema.properties[identifier].items = {};
-            $scope.schema.properties[identifier].items.type="string";
+            $scope.schema.properties[identifier].items.type='string';
             $scope.schema.properties[identifier].items.enum = [];
             param.values.forEach(function (v) {
               $scope.schema.properties[identifier].items.enum.push(v)
@@ -1165,21 +1165,21 @@ angular.module('Metanome')
             $scope.schema.properties[identifier].default = param.defaultValues[i]
           }
         }
-      } else if (param.numberOfSettings == -1) {
+      } else if (param.numberOfSettings === -1) {
         identifier = param.identifier;
         $scope.schema.properties[identifier] = {
-        'title': identifier + " (choose an arbitrary number separated by comma)",
+        'title': identifier + ' (choose an arbitrary number separated by comma)',
         'type': type
         };
         if(useForm) {
           $scope.form.key = identifier;
-          $scope.form.type = "checkboxes";
+          $scope.form.type = 'checkboxes';
           $scope.form.titleMap = [];
           param.values.forEach(function (v) {
-            $scope.form.titleMap.push({"value": v, "name": v});
+            $scope.form.titleMap.push({'value': v, 'name': v});
           })
           $scope.schema.properties[identifier].items = {};
-          $scope.schema.properties[identifier].items.type="string";
+          $scope.schema.properties[identifier].items.type='string';
           $scope.schema.properties[identifier].items.enum = [];
           param.values.forEach(function (v) {
             $scope.schema.properties[identifier].items.enum.push(v)
@@ -1206,13 +1206,13 @@ angular.module('Metanome')
         };
         if(useForm) {
           $scope.form.key = identifier;
-          $scope.form.type = "checkboxes";
+          $scope.form.type = 'checkboxes';
           $scope.form.titleMap = [];
           param.values.forEach(function (v) {
-            $scope.form.titleMap.push({"value": v, "name": v});
+            $scope.form.titleMap.push({'value': v, 'name': v});
           })
           $scope.schema.properties[identifier].items = {};
-          $scope.schema.properties[identifier].items.type="string";
+          $scope.schema.properties[identifier].items.type='string';
           $scope.schema.properties[identifier].items.enum = [];
           param.values.forEach(function (v) {
             $scope.schema.properties[identifier].items.enum.push(v)
@@ -1300,7 +1300,7 @@ angular.module('Metanome')
     function removeDuplicates(a) {
       var ids = a.map(function(f) {return f.id});
       return a.filter(function(item, pos) {
-        return ids.indexOf(item.id) == pos;
+        return ids.indexOf(item.id) === pos;
       });
     }
 
@@ -1378,7 +1378,7 @@ angular.module('Metanome')
                                 })
           }
         }
-      } else if (param.numberOfSettings == 1000){
+      } else if (param.numberOfSettings === 1000){
         if ($scope.model[param.identifier] !== undefined) {
           settingValues = $scope.model[param.identifier].split(',');
           settingValues.forEach(function (settingValue) {
