@@ -89,6 +89,10 @@ angular.module('Metanome')
           display: 'Functional Dependency Algorithms'
         },
         {
+          name: 'matching-dependency-algorithms',
+          display: 'Matching Dependency Algorithms'
+        },
+        {
           name: 'unique-column-combination-algorithms',
           display: 'Unique Column Combination Algorithms'
         },
@@ -169,8 +173,8 @@ angular.module('Metanome')
           result.forEach(function (element) {
             //Remove path from element name
             if (category.name === 'file-inputs') {
-              if (element.name.lastIndexOf("inputData") != -1) {
-                element.name = element.name.substr(element.name.lastIndexOf("inputData") + 10, element.name.length - 1);
+              if (element.name.lastIndexOf('inputData') !== -1) {
+                element.name = element.name.substr(element.name.lastIndexOf('inputData') + 10, element.name.length - 1);
               }
             }
             if (category.name === 'database-connections') {
@@ -212,7 +216,7 @@ angular.module('Metanome')
     }
 
     function getFileSeparator() {
-      if (navigator.platform.indexOf("Win") != -1) {
+      if (navigator.platform.indexOf('Win') !== -1) {
         fileSep = '\\';
       } else {
         fileSep = '/';
@@ -288,6 +292,7 @@ angular.module('Metanome')
                             'description': algorithm.description,
                             'ind': algorithm.ind,
                             'fd': algorithm.fd,
+                            'md': algorithm.md,
                             'ucc': algorithm.ucc,
                             'cucc': algorithm.cucc,
                             'od': algorithm.od,
@@ -370,8 +375,8 @@ angular.module('Metanome')
 
                         if ($scope.$parent.editFileInput) {
                           $scope.file = $scope.$parent.editFileInput;
-                          if ($scope.file.fileName.lastIndexOf("inputData") != -1) {
-                            $scope.defaultFileText = $scope.file.fileName.substr($scope.file.fileName.lastIndexOf("inputData") + 10, $scope.file.fileName.length - 1);
+                          if ($scope.file.fileName.lastIndexOf('inputData') !== -1) {
+                            $scope.defaultFileText = $scope.file.fileName.substr($scope.file.fileName.lastIndexOf('inputData') + 10, $scope.file.fileName.length - 1);
                           } else {
                             $scope.defaultFileText = $scope.file.fileName;
                           }
@@ -424,7 +429,7 @@ angular.module('Metanome')
 
                           inputFiles.forEach( function(file) {
                             // add paths with no file ending to list
-                            if (file.indexOf(".") == -1) {
+                            if (file.indexOf('.') === -1) {
                               directoryPaths.push(file);
                             } else {
                               fileList.push(file);
@@ -433,7 +438,7 @@ angular.module('Metanome')
 
                           fileList.forEach( function(file) {
                             var subDir = file.substr(0, file.lastIndexOf(fileSep));
-                            if (directoryPaths.indexOf(subDir) != -1) {
+                            if (directoryPaths.indexOf(subDir) !== -1) {
                               directoryPaths.splice(directoryPaths.indexOf(subDir), 1);
                             }
                           });
@@ -444,12 +449,12 @@ angular.module('Metanome')
                         // Loads the available files on disk
                         function loadAvailableFiles() {
                           $scope.AvailableInputFiles.get(function (result) {
-                            var updatedResult = result.map(function(f) {if (f.lastIndexOf("inputData") != - 1) {return f.substr(f.lastIndexOf("inputData") + 10, f.length - 1)} else {return f}});
+                            var updatedResult = result.map(function(f) {if (f.lastIndexOf('inputData') !== - 1) {return f.substr(f.lastIndexOf('inputData') + 10, f.length - 1)} else {return f}});
                             $scope.$parent.datasources.forEach(function (category) {
                               if (category.name === 'File Input') {
                                 category.datasource.forEach(function (file) {
-                                  if (file.fileName.lastIndexOf("inputData") != -1) {
-                                    var index = updatedResult.indexOf(file.fileName.substr(file.fileName.lastIndexOf("inputData") + 10, file.fileName.length - 1));
+                                  if (file.fileName.lastIndexOf('inputData') !== -1) {
+                                    var index = updatedResult.indexOf(file.fileName.substr(file.fileName.lastIndexOf('inputData') + 10, file.fileName.length - 1));
                                   } else {
                                     var index = updatedResult.indexOf(file.fileName);
                                   }
@@ -473,13 +478,13 @@ angular.module('Metanome')
                             result.forEach(function (file) {
                               $scope.files.push({
                                                   fileName: file,
-                                                  shortFileName: file.substr(file.lastIndexOf("inputData") + 10, file.length - 1)
+                                                  shortFileName: file.substr(file.lastIndexOf('inputData') + 10, file.length - 1)
                                                 })
                             });
                             if ($scope.$parent.editFileInput) {
                               $scope.files.push({
                                                   fileName: $scope.file.fileName,
-                                                  shortFileName: $scope.file.fileName.substr($scope.file.fileName.lastIndexOf("inputData") + 10, $scope.file.fileName.length - 1)
+                                                  shortFileName: $scope.file.fileName.substr($scope.file.fileName.lastIndexOf('inputData') + 10, $scope.file.fileName.length - 1)
                                                 });
                             }
                             $scope.files.sort(function (a, b) {
@@ -872,7 +877,7 @@ angular.module('Metanome')
                              }]
                            });*/
       AlgorithmExecution.run({}, payload, function (result) {
-        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
+        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&md=' + result.algorithm.md + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
                       '&basicStat=' + result.algorithm.basicStat + '&dc=' + result.algorithm.dc;
 
@@ -1135,13 +1140,13 @@ angular.module('Metanome')
 
           if(useForm) {
             $scope.form.key = identifier;
-            $scope.form.type = "checkboxes";
+            $scope.form.type = 'checkboxes';
             $scope.form.titleMap = [];
             param.values.forEach(function (v) {
-              $scope.form.titleMap.push({"value": v, "name": v});
+              $scope.form.titleMap.push({'value': v, 'name': v});
             })
             $scope.schema.properties[identifier].items = {};
-            $scope.schema.properties[identifier].items.type="string";
+            $scope.schema.properties[identifier].items.type='string';
             $scope.schema.properties[identifier].items.enum = [];
             param.values.forEach(function (v) {
               $scope.schema.properties[identifier].items.enum.push(v)
@@ -1160,21 +1165,21 @@ angular.module('Metanome')
             $scope.schema.properties[identifier].default = param.defaultValues[i]
           }
         }
-      } else if (param.numberOfSettings == -1) {
+      } else if (param.numberOfSettings === -1) {
         identifier = param.identifier;
         $scope.schema.properties[identifier] = {
-        'title': identifier + " (choose an arbitrary number separated by comma)",
+        'title': identifier + ' (choose an arbitrary number separated by comma)',
         'type': type
         };
         if(useForm) {
           $scope.form.key = identifier;
-          $scope.form.type = "checkboxes";
+          $scope.form.type = 'checkboxes';
           $scope.form.titleMap = [];
           param.values.forEach(function (v) {
-            $scope.form.titleMap.push({"value": v, "name": v});
+            $scope.form.titleMap.push({'value': v, 'name': v});
           })
           $scope.schema.properties[identifier].items = {};
-          $scope.schema.properties[identifier].items.type="string";
+          $scope.schema.properties[identifier].items.type='string';
           $scope.schema.properties[identifier].items.enum = [];
           param.values.forEach(function (v) {
             $scope.schema.properties[identifier].items.enum.push(v)
@@ -1201,13 +1206,13 @@ angular.module('Metanome')
         };
         if(useForm) {
           $scope.form.key = identifier;
-          $scope.form.type = "checkboxes";
+          $scope.form.type = 'checkboxes';
           $scope.form.titleMap = [];
           param.values.forEach(function (v) {
-            $scope.form.titleMap.push({"value": v, "name": v});
+            $scope.form.titleMap.push({'value': v, 'name': v});
           })
           $scope.schema.properties[identifier].items = {};
-          $scope.schema.properties[identifier].items.type="string";
+          $scope.schema.properties[identifier].items.type='string';
           $scope.schema.properties[identifier].items.enum = [];
           param.values.forEach(function (v) {
             $scope.schema.properties[identifier].items.enum.push(v)
@@ -1295,7 +1300,7 @@ angular.module('Metanome')
     function removeDuplicates(a) {
       var ids = a.map(function(f) {return f.id});
       return a.filter(function(item, pos) {
-        return ids.indexOf(item.id) == pos;
+        return ids.indexOf(item.id) === pos;
       });
     }
 
@@ -1373,7 +1378,7 @@ angular.module('Metanome')
                                 })
           }
         }
-      } else if (param.numberOfSettings == 1000){
+      } else if (param.numberOfSettings === 1000){
         if ($scope.model[param.identifier] !== undefined) {
           settingValues = $scope.model[param.identifier].split(',');
           settingValues.forEach(function (settingValue) {
