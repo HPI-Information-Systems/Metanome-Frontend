@@ -52,6 +52,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
    * Loads the execution from the backend.
    */
   function loadExecutions() {
+    console.log("loading");
     Executions.getAll({}, function (result) {
       $scope.content = [];
 
@@ -62,15 +63,40 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           input.name = input.name.replace(/^.*[\\\/]/, '');
           inputs.push(input.name)
         });
-
+        console.log("resultType");
         // get the result types
         var results = [];
-        execution.results.forEach(function (result) {
-          results.push(result.typeName)
-        });
-        if (execution.aborted) {
-          results = ['EXECUTION ABORTED']
+        if (execution.algorithm.basicStat === true) {
+          results.push("Basic Statistics")
         }
+        if (execution.algorithm.ucc === true) {
+          results.push("Unique Column Combination")
+        }
+        if (execution.algorithm.cucc === true) {
+          results.push("Conditional Unique Column Combination")
+        }
+        if (execution.algorithm.ind === true) {
+          results.push("Inclusion Dependency")
+        }
+        if (execution.algorithm.fd === true) {
+          results.push("Functional Dependency")
+        }
+        if (execution.algorithm.od === true) {
+          results.push("Order Dependency")
+        }
+        if (execution.algorithm.mvd === true) {
+          results.push("Multivalued Dependency")
+        }
+        if (execution.algorithm.dc === true) {
+          results.push("Denial Constraint")
+        }
+        if (execution.algorithm.md === true) {
+          results.push("Matching Dependency")
+        }
+        if (execution.aborted) {
+          results.push('EXECUTION ABORTED')
+        }
+        console.log("loading");
 
         // calculate execution time
         var duration = execution.end - execution.begin;
@@ -118,7 +144,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           identifier: execution.identifier
         })
       });
-
+      console.log($scope.content);
       // order the executions
       var orderBy = $filter('orderBy');
       $scope.content = orderBy($scope.content, $scope.historyTable.params.sort, true);
@@ -131,6 +157,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
    * @param execution the execution
    */
   function showResult(execution) {
+    console.log(execution.id);
         if (!execution.aborted) {
           $location.url('/result/' + execution.id + '?count=' + execution.count + '&cached=' + execution.cached +
           '&load=true' + '&ind=' + execution.ind + '&fd=' + execution.fd + '&md=' + execution.md + '&ucc=' + execution.ucc +
