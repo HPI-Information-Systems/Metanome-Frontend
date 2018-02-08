@@ -5,7 +5,7 @@ var app = angular.module('Metanome')
   .config(function config($stateProvider) {
     $stateProvider
       .state('result', {
-        url: '/result/:resultId?cached&count&load&file&extended&ind&od&ucc&cucc&fd&md&mvd&basicStat&dc',
+        url: '/result/:resultId?cached&count&load&file&extended&ind&od&ucc&cucc&fd&md$cfd&mvd&basicStat&dc',
         views: {
           'main@': {
             controller: 'ResultCtrl',
@@ -29,6 +29,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.count = ($stateParams.count === 'true');
   $scope.fd = ($stateParams.fd === 'true');
   $scope.md = ($stateParams.md === 'true');
+  $scope.cfd = ($stateParams.cfd === 'true');
   $scope.ind = ($stateParams.ind === 'true');
   $scope.ucc = ($stateParams.ucc === 'true');
   $scope.cucc = ($stateParams.cucc === 'true');
@@ -89,6 +90,23 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
     selected: [],
     params: {
       type: 'Matching Dependency',
+      sort: 'Determinant',
+      from: 0,
+      to: defaultCacheSize
+    }
+  };
+
+  $scope.conditionalFunctionalDependency = {
+    count: 0,
+    data: [],
+    query: {
+      order: '',
+      limit: 10,
+      page: 1
+    },
+    selected: [],
+    params: {
+      type: 'Conditional Functional Dependency',
       sort: 'Determinant',
       from: 0,
       to: defaultCacheSize
@@ -380,6 +398,47 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   }
 
   /**
+   * Loads the result for conditional functional dependencies from the backend.
+   */
+  function loadConditionalFunctionalDependency() {
+    Results.get($scope.conditionalFunctionalDependency.params, function (res) {
+      var rows = [];
+      res.forEach(function (result) {
+        var determinant = [];
+        result.result.determinant.columnIdentifiers.forEach(function (combination) {
+          if (combination.tableIdentifier && combination.columnIdentifier) {
+            determinant.push(combination.tableIdentifier + '.' + combination.columnIdentifier);
+          } else {
+            determinant.push('');
+          }
+        });
+        var extendedDependant = [];
+        if (result.extendedDependant) {
+          result.extendedDependant.columnIdentifiers.forEach(function (combination) {
+            if (combination.tableIdentifier && combination.columnIdentifier) {
+              extendedDependant.push(combination.tableIdentifier + '.' + combination.columnIdentifier)
+            } else {
+              determinant.push('');
+            }
+          })
+        }
+        var dependant = '';
+        if (result.dependant.tableIdentifier && result.dependant.columnIdentifier) {
+          dependant = result.dependant.tableIdentifier + '.' + result.dependant.columnIdentifier;
+        }
+
+        rows.push({
+          determinant: '[' + determinant.join(',\n ') + ']',
+          dependant: dependant,
+          extendedDependant: '[' + extendedDependant.join(',\n ') + ']',
+          tableau: result.tableau
+        })
+      });
+      $scope.conditionalFunctionalDependency.data = $scope.conditionalFunctionalDependency.data.concat(rows)
+    })
+  }
+
+  /**
    * Loads the result for basic statistics from the backend.
    */
   function loadBasicStatistic() {
@@ -622,6 +681,18 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
           }
         });
     }
+    if ($scope.cfd || $scope.file) {
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.conditionalFunctionalDependency.params.type).
+      then(function (response) {
+        var count = response.data;
+        if (count > 0) {
+          $scope.conditionalFunctionalDependency.count = count;
+          if (!$scope.count) {
+            loadConditionalFunctionalDependency()
+          }
+        }
+      });
+    }
     if ($scope.basicStat || $scope.file) {
       $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.basicStatistic.params.type).
         then(function (response) {
@@ -783,6 +854,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
     }
     return deferred.promise;
   }
+
   /**
    * Updates the result for matching dependency according to the selected limit and page.
    * @param page the current page
@@ -795,6 +867,27 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
       $scope.matchingDependency.params.from += $scope.matchingDependency.params.to + 1;
       $scope.matchingDependency.params.to += Math.max(limit, $scope.matchingDependency.count);
       loadMatchingDependency();
+      $timeout(function () {
+        deferred.resolve();
+      }, 500);
+    } else {
+      deferred.resolve()
+    }
+    return deferred.promise;
+  }
+
+  /**
+   * Updates the result for conditional functional dependency according to the selected limit and page.
+   * @param page the current page
+   * @param limit the current limit
+   * @returns {*}
+   */
+  function onPageChangeCFD(page, limit) {
+    var deferred = $q.defer();
+    if ($scope.conditionalFunctionalDependency.params.to < $scope.conditionalFunctionalDependency.count) {
+      $scope.conditionalFunctionalDependency.params.from += $scope.conditionalFunctionalDependency.params.to + 1;
+      $scope.conditionalFunctionalDependency.params.to += Math.max(limit, $scope.conditionalFunctionalDependency.count);
+      loadFunctionalDependency();
       $timeout(function () {
         deferred.resolve();
       }, 500);
@@ -998,6 +1091,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.onPageChangeUCC = onPageChangeUCC;
   $scope.onPageChangeFD = onPageChangeFD;
   $scope.onPageChangeMD = onPageChangeMD;
+  $scope.onPageChangeCFD = onPageChangeCFD;
   $scope.onPageChangeIND = onPageChangeIND;
   $scope.onPageChangeCUCC = onPageChangeCUCC;
   $scope.onPageChangeOD = onPageChangeOD;
