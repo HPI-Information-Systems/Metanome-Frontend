@@ -52,7 +52,6 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
    * Loads the execution from the backend.
    */
   function loadExecutions() {
-    console.log("loading");
     Executions.getAll({}, function (result) {
       $scope.content = [];
 
@@ -63,7 +62,6 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           input.name = input.name.replace(/^.*[\\\/]/, '');
           inputs.push(input.name)
         });
-        console.log("resultType");
         // get the result types
         var results = [];
         if (execution.algorithm.basicStat === true) {
@@ -94,9 +92,8 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           results.push("Matching Dependency")
         }
         if (execution.aborted) {
-          results.push('EXECUTION ABORTED')
+          results = ['EXECUTION ABORTED']
         }
-        console.log("loading");
 
         // calculate execution time
         var duration = execution.end - execution.begin;
@@ -144,7 +141,6 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           identifier: execution.identifier
         })
       });
-      console.log($scope.content);
       // order the executions
       var orderBy = $filter('orderBy');
       $scope.content = orderBy($scope.content, $scope.historyTable.params.sort, true);
@@ -157,7 +153,6 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
    * @param execution the execution
    */
   function showResult(execution) {
-    console.log(execution.id);
         if (!execution.aborted) {
           $location.url('/result/' + execution.id + '?count=' + execution.count + '&cached=' + execution.cached +
           '&load=true' + '&ind=' + execution.ind + '&fd=' + execution.fd + '&md=' + execution.md + '&ucc=' + execution.ucc +
