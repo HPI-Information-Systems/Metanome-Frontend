@@ -431,7 +431,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
           determinant: '[' + determinant.join(',\n ') + ']',
           dependant: dependant,
           extendedDependant: '[' + extendedDependant.join(',\n ') + ']',
-          tableau: result.tableau
+          tableau: result.patternTableau
         })
       });
       $scope.conditionalFunctionalDependency.data = $scope.conditionalFunctionalDependency.data.concat(rows)
