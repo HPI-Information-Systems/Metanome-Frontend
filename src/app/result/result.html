@@ -28,7 +28,7 @@
       ng-if="execution.end > 0"> executed in {{duration}}</span>
       <span ng-if="execution.end == 0"> - EXECUTION ABORTED!</span>
       <a ng-if="!extended && !count && execution.end > 0"
-         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&md={{md}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}&dc={{dc}}"
+         ng-href="#/result/{{id}}?extended=true&cached={{cached}}&ind={{ind}}&fd={{fd}}&md={{md}}&cfd={{cfd}}&ucc={{ucc}}&cucc={{cucc}}&od={{od}}&basicStat={{basicStat}}&mvd={{mvd}}&dc={{dc}}"
          style="margin: -10px 10px -10px 0; float: right;">
         <md-button ng-click="executeAlgorithm(cachingSelection, memory)" class="md-raised md-primary">Load extended
           result
@@ -166,6 +166,38 @@
                          md-page="matchingDependency.query.page"
                          md-total="{{matchingDependency.count}}"
                          md-on-paginate="onPageChangeMD"
+                         md-options=paginationValues></md-table-pagination>
+  </md-card>
+
+  <md-card ng-if="(cached || file)  && conditionalFunctionalDependency.count > 0">
+    <md-table-toolbar>
+      <h2 class="md-title">Conditional Functional Dependency</h2>
+    </md-table-toolbar>
+
+    <md-table-container>
+      <table md-table class="md-primary result-table">
+        <thead md-head md-order="conditionalFunctionalDependency.query.order">
+        <tr md-row class="result-header-row">
+          <th md-column md-order-by="determinant" name="Determinant">Determinant</th>
+          <th md-column md-order-by="dependant" name="Dependant">Dependant</th>
+          <th md-column md-order-by="tableau" name="Tableau">Pattern Tableau</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row
+            ng-repeat="item in conditionalFunctionalDependency.data | orderBy: conditionalFunctionalDependency.query.order | limitTo: conditionalFunctionalDependency.query.limit: (conditionalFunctionalDependency.query.page - 1) * conditionalFunctionalDependency.query.limit">
+          <td md-cell>{{item.determinant}}</td>
+          <td md-cell>{{item.dependant}}</td>
+          <td md-cell>{{item.tableau}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="conditionalFunctionalDependency.query.limit"
+                         md-page="conditionalFunctionalDependency.query.page"
+                         md-total="{{conditionalFunctionalDependency.count}}"
+                         md-on-paginate="onPageChangeCFD"
                          md-options=paginationValues></md-table-pagination>
   </md-card>
 
@@ -435,6 +467,12 @@
       {{matchingDependency.count}}
     </md-card-content>
   </md-card>
+  <md-card ng-if="count && conditionalFunctionalDependency.count > 0">
+    <md-card-content>
+      <h2 class="md-title">Conditional Functional Dependency</h2>
+      {{conditionalFunctionalDependency.count}}
+    </md-card-content>
+  </md-card>
   <md-card ng-if="count && inclusionDependency.count > 0">
     <md-card-content>
       <h2 class="md-title">Inclusion Dependency</h2>
@@ -473,8 +511,9 @@
   </md-card>
 
   <md-card ng-if="uniqueColumnCombination.count == 0 && orderDependency.count == 0 &&
-  conditionalUniqueColumnCombination.count == 0 && basicStatistic.count == 0 && functionalDependency.count == 0 && matchingDependency.count == 0 &&
-  inclusionDependency.count == 0 && multivaluedDependency.count == 0 && denialConstraint.count == 0 && loading == false">
+  conditionalUniqueColumnCombination.count == 0 && basicStatistic.count == 0 && functionalDependency.count == 0 &&
+  matchingDependency.count == 0 && conditionalFunctionalDependency.count == 0 && inclusionDependency.count == 0 &&
+  multivaluedDependency.count == 0 && denialConstraint.count == 0 && loading == false">
     <h3 style="margin: 20px" class="md-title">No results found!</h3>
   </md-card>
 
