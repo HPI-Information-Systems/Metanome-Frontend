@@ -1144,7 +1144,7 @@ angular.module('Metanome')
             $scope.form.titleMap = [];
             param.values.forEach(function (v) {
               $scope.form.titleMap.push({'value': v, 'name': v});
-            })
+            });
             $scope.schema.properties[identifier].items = {};
             $scope.schema.properties[identifier].items.type='string';
             $scope.schema.properties[identifier].items.enum = [];
@@ -1168,16 +1168,27 @@ angular.module('Metanome')
       } else if (param.numberOfSettings === -1) {
         identifier = param.identifier;
         $scope.schema.properties[identifier] = {
-        'title': identifier + ' (choose an arbitrary number separated by comma)',
-        'type': type
+          'title': identifier + ' (choose an arbitrary number separated by comma)',
+          'type': type
         };
+        if(!useForm && !useEnum){
+          $scope.schema.properties[identifier] = {
+            'type': "array",
+            'notitle': true,
+            'items': {
+                'title': identifier,
+                'type': type
+            }
+          };
+        }
+
         if(useForm) {
           $scope.form.key = identifier;
           $scope.form.type = 'checkboxes';
           $scope.form.titleMap = [];
           param.values.forEach(function (v) {
             $scope.form.titleMap.push({'value': v, 'name': v});
-          })
+          });
           $scope.schema.properties[identifier].items = {};
           $scope.schema.properties[identifier].items.type='string';
           $scope.schema.properties[identifier].items.enum = [];
@@ -1210,7 +1221,7 @@ angular.module('Metanome')
           $scope.form.titleMap = [];
           param.values.forEach(function (v) {
             $scope.form.titleMap.push({'value': v, 'name': v});
-          })
+          });
           $scope.schema.properties[identifier].items = {};
           $scope.schema.properties[identifier].items.type='string';
           $scope.schema.properties[identifier].items.enum = [];
@@ -1367,20 +1378,9 @@ angular.module('Metanome')
       var settingValue;
       var j;
 
-      if (param.numberOfSettings > 1) {
-        for (j = param.numberOfSettings; j > 0; j--) {
-          settingValue = $scope.model[param.identifier + ' (' + j + ')'];
-          // only set the value if it is set
-          if (settingValue !== undefined) {
-            param.settings.push({
-                                  'type': typeValue,
-                                  'value': settingValue
-                                })
-          }
-        }
-      } else if (param.numberOfSettings === 1000){
+      if (param.numberOfSettings === 1000){
         if ($scope.model[param.identifier] !== undefined) {
-          settingValues = $scope.model[param.identifier].split(',');
+          var settingValues = $scope.model[param.identifier];
           settingValues.forEach(function (settingValue) {
             if (settingValue !== undefined) {
               param.settings.push({
@@ -1389,6 +1389,17 @@ angular.module('Metanome')
               })
             }
           })
+        }
+      } else if (param.numberOfSettings > 1) {
+        for (j = param.numberOfSettings; j > 0; j--) {
+          settingValue = $scope.model[param.identifier + ' (' + j + ')'];
+          // only set the value if it is set
+          if (settingValue !== undefined) {
+            param.settings.push({
+              'type': typeValue,
+              'value': settingValue
+            })
+          }
         }
       } else {
         settingValue = $scope.model[param.identifier];
@@ -1572,7 +1583,7 @@ angular.module('Metanome')
              (params[i].required && params[i].numberOfSettings === -1 &&
              numberOfSettings < 1))
         ) {
-          throw new WrongParameterError('Wrong value or number for parameter "' + params[i].identifier + '"!')
+          throw new WrongParameterError('Wrong value or number for parameter "' + params[i].identifier + '"! Was ' + params[i].numberOfSettings)
         }
       }
 
