@@ -1171,15 +1171,11 @@ angular.module('Metanome')
           'title': identifier + ' (choose an arbitrary number separated by comma)',
           'type': type
         };
-        if(!useForm && !useEnum){
-          $scope.schema.properties[identifier] = {
-            'type': "array",
-            'notitle': true,
-            'items': {
-                'title': identifier,
-                'type': type
-            }
-          };
+        if(!useForm && !useEnum) {
+          $scope.schema.properties[identifier].title = identifier;
+          $scope.schema.properties[identifier].type = 'array';
+          $scope.schema.properties[identifier].items = {};
+          $scope.schema.properties[identifier].items.type = type;
         }
 
         if(useForm) {
@@ -1378,7 +1374,7 @@ angular.module('Metanome')
       var settingValue;
       var j;
 
-      if (param.numberOfSettings === 1000){
+      if (param.numberOfSettings === -1){
         if ($scope.model[param.identifier] !== undefined) {
           var settingValues = $scope.model[param.identifier];
           settingValues.forEach(function (settingValue) {
@@ -1397,7 +1393,7 @@ angular.module('Metanome')
           if (settingValue !== undefined) {
             param.settings.push({
               'type': typeValue,
-              'value': settingValue
+              'value': settingVal
             })
           }
         }
@@ -1405,9 +1401,9 @@ angular.module('Metanome')
         settingValue = $scope.model[param.identifier];
         if (settingValue !== undefined) {
           param.settings.push({
-                                'type': typeValue,
-                                'value': settingValue
-                              })
+            'type': typeValue,
+            'value': settingValue
+          })
         }
       }
 
