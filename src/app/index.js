@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('Metanome', [
+  'ngSanitize',
   'ngAnimate',
   'ngCookies',
   'ngResource',
