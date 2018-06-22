@@ -244,6 +244,11 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
                            scope: $scope
                          })
   }
+
+    function reloadParameters(execution) {
+
+        }
+
   // ** EXPORT FUNCTIONS **
   // **********************
 
