@@ -79,6 +79,9 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
         if (execution.algorithm.fd === true) {
           results.push("Functional Dependency")
         }
+        if (execution.algorithm.cid === true) {
+          results.push("Conditional Inclusion Dependency")
+        }
         if (execution.algorithm.od === true) {
           results.push("Order Dependency")
         }
@@ -129,6 +132,7 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
           count: execution.countResult,
           cached: !execution.countResult,
           fd: execution.algorithm.fd,
+          cid: execution.algorithm.cid,
           md: execution.algorithm.md,
           cfd: execution.algorithm.cfd,
           ind: execution.algorithm.ind,

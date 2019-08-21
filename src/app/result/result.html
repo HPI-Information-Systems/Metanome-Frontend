@@ -136,6 +136,38 @@
                          md-on-paginate="onPageChangeFD"
                          md-options=paginationValues></md-table-pagination>
   </md-card>
+    
+    <md-card ng-if="(cached || file)  && conditionalInclusionDependency.count > 0">
+    <md-table-toolbar>
+      <h2 class="md-title">Conditional Inclusion Dependency </h2>
+    </md-table-toolbar>
+
+    <md-table-container>
+      <table md-table class="md-primary result-table">
+        <thead md-head md-order="conditionalInclusionDependency.query.order">
+        <tr md-row class="result-header-row">
+          <th md-column md-order-by="determinant" name="Determinant">Determinant</th>
+          <th md-column md-order-by="dependant" name="Dependant">Dependant</th>
+          <th md-column ng-if="extended" md-order-by="extendedDependant" name="Extended Dependant">Extended Dependant</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row
+            ng-repeat="item in conditionalInclusionDependency.data | orderBy: conditionalInclusionDependency.query.order | limitTo: conditionalInclusionDependency.query.limit: (conditionalInclusionDependency.query.page - 1) * conditionalInclusionDependency.query.limit">
+          <td md-cell>{{item.determinant}}</td>
+          <td md-cell>{{item.dependant}}</td>
+          <td md-cell ng-if="extended">{{item.extendedDependant}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="conditionalInclusionDependency.query.limit"
+                         md-page="conditionalInclusionDependency.query.page"
+                         md-total="{{conditionalInclusionDependency.count}}"
+                         md-on-paginate="onPageChangeCID"
+                         md-options=paginationValues></md-table-pagination>
+  </md-card>
 
   <md-card ng-if="(cached || file)  && matchingDependency.count > 0">
     <md-table-toolbar>

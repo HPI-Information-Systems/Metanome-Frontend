@@ -89,6 +89,10 @@ angular.module('Metanome')
           display: 'Functional Dependency Algorithms'
         },
         {
+          name: 'conditional-inclusion-dependency-algorithms',
+          display: 'Conditional Inclusion Dependency Algorithms'
+        },
+        {
           name: 'matching-dependency-algorithms',
           display: 'Matching Dependency Algorithms'
         },
@@ -296,6 +300,7 @@ angular.module('Metanome')
                             'description': algorithm.description,
                             'ind': algorithm.ind,
                             'fd': algorithm.fd,
+                            'cid': algorithm.cid,
                             'md': algorithm.md,
                             'cfd': algorithm.cfd,
                             'ucc': algorithm.ucc,
@@ -882,10 +887,17 @@ angular.module('Metanome')
                              }]
                            });*/
       AlgorithmExecution.run({}, payload, function (result) {
-        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&md=' + result.algorithm.md +
-                      '&cfd=' + result.algorithm.cfd + '&ucc=' + result.algorithm.ucc +
-                      '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
-                      '&basicStat=' + result.algorithm.basicStat + '&dc=' + result.algorithm.dc;
+        var url = '&ind=' + result.algorithm.ind 
+                + '&fd=' + result.algorithm.fd 
+                + '&cid=' + result.algorithm.cid 
+                + '&md=' + result.algorithm.md 
+                + '&cfd=' + result.algorithm.cfd 
+                + '&ucc=' + result.algorithm.ucc 
+                + '&cucc=' + result.algorithm.cucc 
+                + '&od=' + result.algorithm.od 
+                + '&mvd=' + result.algorithm.mvd 
+                + '&basicStat=' + result.algorithm.basicStat 
+                + '&dc=' + result.algorithm.dc;
 
 
         if (!$scope.canceled) {

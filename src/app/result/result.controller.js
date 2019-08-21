@@ -28,6 +28,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
   $scope.file = ($stateParams.file === 'true');
   $scope.count = ($stateParams.count === 'true');
   $scope.fd = ($stateParams.fd === 'true');
+  $scope.cid = ($stateParams.cid === 'true');
   $scope.md = ($stateParams.md === 'true');
   $scope.cfd = ($stateParams.cfd === 'true');
   $scope.ind = ($stateParams.ind === 'true');
@@ -73,6 +74,23 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
     selected: [],
     params: {
       type: 'Functional Dependency',
+      sort: 'Determinant',
+      from: 0,
+      to: defaultCacheSize
+    }
+  };
+  
+  $scope.conditionalInclusionDependency = {
+    count: 0,
+    data: [],
+    query: {
+      order: '',
+      limit: 10,
+      page: 1
+    },
+    selected: [],
+    params: {
+      type: 'Conditional Inclusion Dependency',
       sort: 'Determinant',
       from: 0,
       to: defaultCacheSize
@@ -336,6 +354,46 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
         })
       });
       $scope.functionalDependency.data = $scope.functionalDependency.data.concat(rows)
+    })
+  }
+  
+  /**
+   * Loads the result for conditional inclusion dependencies from the backend.
+   */
+  function loadConditionalInclusionDependency() {
+    Results.get($scope.conditionalInclusionDependency.params, function (res) {
+      var rows = [];
+      res.forEach(function (result) {
+        var determinant = [];
+        result.result.determinant.columnIdentifiers.forEach(function (combination) {
+          if (combination.tableIdentifier && combination.columnIdentifier) {
+            determinant.push(combination.tableIdentifier + '.' + combination.columnIdentifier);
+          } else {
+            determinant.push('');
+          }
+        });
+        var extendedDependant = [];
+        if (result.extendedDependant) {
+          result.extendedDependant.columnIdentifiers.forEach(function (combination) {
+            if (combination.tableIdentifier && combination.columnIdentifier) {
+              extendedDependant.push(combination.tableIdentifier + '.' + combination.columnIdentifier)
+            } else {
+              determinant.push('');
+            }
+          })
+        }
+        var dependant = '';
+        if (result.dependant.tableIdentifier && result.dependant.columnIdentifier) {
+          dependant = result.dependant.tableIdentifier + '.' + result.dependant.columnIdentifier;
+        }
+
+        rows.push({
+          determinant: '[' + determinant.join(',\n ') + ']',
+          dependant: dependant,
+          extendedDependant: '[' + extendedDependant.join(',\n ') + ']'
+        })
+      });
+      $scope.conditionalInclusionDependency.data = $scope.conditionalInclusionDependency.data.concat(rows)
     })
   }
 
@@ -669,6 +727,18 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
           }
         });
     }
+    if ($scope.cid || $scope.file) {
+      $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.conditionalInclusionDependency.params.type).
+        then(function (response) {
+          var count = response.data;
+          if (count > 0) {
+            $scope.conditionalInclusionDependency.count = count;
+            if (!$scope.count) {
+              loadConditionalInclusionDependency()
+            }
+          }
+        });
+    }
     if ($scope.md || $scope.file) {
       $http.get(ENV_VARS.API + '/api/result-store/count/' + $scope.matchingDependency.params.type).
         then(function (response) {
@@ -846,6 +916,27 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
       $scope.functionalDependency.params.from += $scope.functionalDependency.params.to + 1;
       $scope.functionalDependency.params.to += Math.max(limit, $scope.functionalDependency.count);
       loadFunctionalDependency();
+      $timeout(function () {
+        deferred.resolve();
+      }, 500);
+    } else {
+      deferred.resolve()
+    }
+    return deferred.promise;
+  }
+  
+  /**
+   * Updates the result for conditional inclusion dependency according to the selected limit and page.
+   * @param page the current page
+   * @param limit the current limit
+   * @returns {*}
+   */
+  function onPageChangeCID(page, limit) {
+    var deferred = $q.defer();
+    if ($scope.conditionalInclusionDependency.params.to < $scope.conditionalInclusionDependency.count) {
+      $scope.conditionalInclusionDependency.params.from += $scope.conditionalInclusionDependency.params.to + 1;
+      $scope.conditionalInclusionDependency.params.to += Math.max(limit, $scope.conditionalInclusionDependency.count);
+      loadConditionalInclusionDependency();
       $timeout(function () {
         deferred.resolve();
       }, 500);
@@ -1087,6 +1178,7 @@ app.controller('ResultCtrl', function ($scope, $log, Executions, Results, $q, us
 
   $scope.openFDVisualization = openFDVisualization;
   $scope.openUCCVisualization = openUCCVisualization;
+  $scope.onPageChangeCID = onPageChangeCID;
   $scope.onPageChangeBS = onPageChangeBS;
   $scope.onPageChangeUCC = onPageChangeUCC;
   $scope.onPageChangeFD = onPageChangeFD;
